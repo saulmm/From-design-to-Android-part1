@@ -8,12 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class HomeActivity extends AppCompatActivity {
+import com.saulmm.cui.databinding.ItemProductBinding;
+import com.saulmm.cui.model.Product;
 
-    private final String [] PRODUCTS = new String[] {
-        "Shooting Stars", "Pictures in Sky", "The basics of buying a telescope",
-        "The skyrider"
-    };
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +20,15 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private static class ProductViewHolder extends RecyclerView.ViewHolder {
+        private final ItemProductBinding binding;
 
-        public ProductViewHolder(View itemView) {
-            super(itemView);
+        public ProductViewHolder(ItemProductBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        public void bind(Product product) {
+            binding.setProduct(product);
         }
     }
 }
