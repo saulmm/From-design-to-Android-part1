@@ -16,5 +16,4 @@
         android:layout_margin="@dimen/text_margin"
         android:text="@string/large_text"
         />
-
 </android.support.v4.widget.NestedScrollView>
