@@ -6,7 +6,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         tools:context="com.saulmm.cui.HomeActivity"
         >
 
@@ -14,9 +13,11 @@
             android:id="@+id/products_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:clipToPadding="false"
+            android:paddingTop="@dimen/spacing_medium"
             app:layoutManager="StaggeredGridLayoutManager"
-            app:spanCount="2"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:spanCount="@integer/product_columns"
             tools:listitem="@layout/item_product"
             />
     </android.support.design.widget.CoordinatorLayout>
