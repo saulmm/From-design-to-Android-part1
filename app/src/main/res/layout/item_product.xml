@@ -12,22 +12,24 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="264dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="42dp"
         android:orientation="vertical"
         >
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/image"
             android:layout_width="0dp"
-            android:layout_height="160dp"
+            android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@color/colorAccent"
+            tools:layout_height="@dimen/product_regular_height"
             />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -37,12 +39,12 @@
             android:textColor="@color/grey_800"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/image"
             tools:text="Shooting stars"
             />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -51,7 +53,7 @@
             android:textColor="@color/blue_grey_400"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/name"
             tools:text="$ 45"
             />
     </android.support.constraint.ConstraintLayout>

@@ -4,4 +4,7 @@
     <dimen name="text_margin">16dp</dimen>
 
     <dimen name="product_margin">8dp</dimen>
+    <dimen name="product_radius">10dp</dimen>
+    <dimen name="product_regular_height">160dp</dimen>
+    <dimen name="product_large_height">208dp</dimen>
 </resources>
