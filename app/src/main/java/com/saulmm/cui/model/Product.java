@@ -23,10 +23,10 @@ public class Product {
 
     public static List<Product> createFakeProducts() {
         return Arrays.asList(
-            new Product("Shooting Stars", "$45", ALL_STAR),
-            new Product("Pictures in Sky", "$575", SANDAL),
-            new Product("The basics of buying a telescope", "$892", WOMEN_SHOES),
-            new Product("The skyrider", "$23", SPORT_SHOES)
+            new Product("Shooting Stars", "$ 45", ALL_STAR),
+            new Product("Pictures in Sky", "$ 575", SANDAL),
+            new Product("The basics of buying a telescope", "$ 892", WOMEN_SHOES),
+            new Product("The skyrider", "$ 23", SPORT_SHOES)
         );
     }
 }
