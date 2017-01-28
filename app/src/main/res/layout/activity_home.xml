@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.saulmm.cui.HomeActivity"
-    >
+<layout>
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="com.saulmm.cui.HomeActivity"
+        >
 
-    <include layout="@layout/content_home"/>
-</android.support.design.widget.CoordinatorLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/products_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layoutManager="StaggeredGridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/item_product"
+            />
+    </android.support.design.widget.CoordinatorLayout>
+</layout>
+
