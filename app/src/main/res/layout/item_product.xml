@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="product"
@@ -26,15 +26,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@color/colorAccent"
             tools:layout_height="@dimen/product_regular_height"
+            tools:ignore="ContentDescription"
             />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginStart="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_large"
             android:text="@{product.name}"
             android:textColor="@color/grey_800"
             android:textSize="14sp"
@@ -47,8 +48,8 @@
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_medium"
             android:text="@{product.price}"
             android:textColor="@color/blue_grey_400"
             android:textSize="14sp"
