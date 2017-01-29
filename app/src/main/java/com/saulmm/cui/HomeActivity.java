@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.saulmm.cui.databinding.ActivityHomeBinding;
 import com.saulmm.cui.model.Product;
+import com.saulmm.cui.recycler.OnItemSelectedListener;
 import com.saulmm.cui.recycler.ProductAdapter;
 import com.saulmm.cui.recycler.ProductItemPaddingDecoration;
 
@@ -25,5 +26,11 @@ public class HomeActivity extends AppCompatActivity {
         productsRecycler.setHasFixedSize(true);
         productsRecycler.setAdapter(new ProductAdapter(Product.createFakeProducts()));
         productsRecycler.addItemDecoration(new ProductItemPaddingDecoration(this));
+        productsRecycler.addOnItemTouchListener(new OnItemSelectedListener(this) {
+            @Override
+            public void onItemSelected(RecyclerView.ViewHolder holder, int position) {
+                OrderDialogFragment.newInstance().show(getSupportFragmentManager(), null);
+            }
+        });
     }
 }

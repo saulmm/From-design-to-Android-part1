@@ -3,8 +3,11 @@ package com.saulmm.cui.recycler;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.saulmm.cui.OrderDialogFragment;
 import com.saulmm.cui.R;
 import com.saulmm.cui.databinding.ItemProductBinding;
 import com.saulmm.cui.model.Product;
@@ -21,6 +24,7 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
 
     void bind(Product product) {
         binding.setProduct(product);
+
         setProductImage(product.productId);
     }
 
