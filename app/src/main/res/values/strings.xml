@@ -91,4 +91,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="btn_go">Go</string>
+    <string name="txt_label_size">Size</string>
+    <string name="txt_label_colour">Colour</string>
 </resources>
