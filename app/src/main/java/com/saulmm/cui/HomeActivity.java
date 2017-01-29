@@ -1,5 +1,6 @@
 package com.saulmm.cui;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,8 @@ import com.saulmm.cui.model.Product;
 import com.saulmm.cui.recycler.OnItemSelectedListener;
 import com.saulmm.cui.recycler.ProductAdapter;
 import com.saulmm.cui.recycler.ProductItemPaddingDecoration;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class HomeActivity extends AppCompatActivity {
     private ActivityHomeBinding binding;
@@ -32,5 +35,10 @@ public class HomeActivity extends AppCompatActivity {
                 OrderDialogFragment.newInstance().show(getSupportFragmentManager(), null);
             }
         });
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }
