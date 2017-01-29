@@ -10,4 +10,6 @@
     <dimen name="spacing_large">16dp</dimen>
     <dimen name="spacing_medium">8dp</dimen>
     <dimen name="product_order_form_height">412dp</dimen>
+
+    <dimen name="font_size_medium">16sp</dimen>
 </resources>
