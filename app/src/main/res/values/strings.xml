@@ -94,4 +94,6 @@
     <string name="btn_go">Go</string>
     <string name="txt_label_size">Size</string>
     <string name="txt_label_colour">Colour</string>
+    <string name="label_color">Colour</string>
+    <string name="label_size">Size</string>
 </resources>
