@@ -96,4 +96,6 @@
     <string name="txt_label_colour">Colour</string>
     <string name="label_color">Colour</string>
     <string name="label_size">Size</string>
+    <string name="label_prefered_date">Prefered date</string>
+    <string name="label_prefered_time">Prefered time</string>
 </resources>

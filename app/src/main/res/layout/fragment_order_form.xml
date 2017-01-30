@@ -77,7 +77,7 @@
             app:layout_constraintTop_toBottomOf="@+id/img_product"
             >
 
-            <include layout="@layout/layout_order_details"/>
+            <include layout="@layout/layout_form_order_step1"/>
 
         </FrameLayout>
 
@@ -136,6 +136,5 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_label_size"
             app:layout_constraintVertical_bias="0.507"
             />
-
     </android.support.constraint.ConstraintLayout>
 </layout>
