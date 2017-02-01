@@ -25,7 +25,6 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         return new OrderDialogFragment();
     }
 
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -37,5 +36,8 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         this.binding = FragmentOrderFormBinding.inflate(LayoutInflater.from(getContext()));
         final View contentView = binding.getRoot();
         dialog.setContentView(contentView);
+    }
+
+    public void onColorClick(View view) {
     }
 }
