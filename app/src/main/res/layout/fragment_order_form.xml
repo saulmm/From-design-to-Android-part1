@@ -9,16 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:background="#FFF"
+        tools:background="@color/white"
         >
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_product"
             android:layout_width="42dp"
             android:layout_height="42dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginLeft="@dimen/spacing_huge"
+            android:layout_marginStart="@dimen/spacing_huge"
+            android:layout_marginTop="@dimen/spacing_huge"
             android:src="@color/product_blue"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -71,13 +71,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:paddingBottom="42dp"
+            android:clickable="true"
+            android:foreground="?selectableItemBackgroundBorderless"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_product"
             >
 
-            <include layout="@layout/layout_form_order_step1"/>
+            <include
+                android:id="@+id/layout_step1"
+                layout="@layout/layout_form_order_step1"/>
 
         </FrameLayout>
 
@@ -86,7 +90,6 @@
             android:layout_width="200dp"
             android:layout_height="125dp"
             android:background="@color/product_purple"
-            android:foreground="?selectableItemBackground"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/form_container"
             >
@@ -99,8 +102,6 @@
                 android:textColor="@color/white"
                 android:textSize="38sp"
                 />
-
-
         </FrameLayout>
 
         <TextView
@@ -109,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="24dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="@string/txt_label_size"
             android:textColor="@color/blue_grey_900"
@@ -117,6 +118,7 @@
             app:layout_constraintBottom_toTopOf="@+id/txt_label_colour"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/form_container"
+            app:layout_constraintVertical_bias="0.5"
             />
 
         <TextView
@@ -135,6 +137,19 @@
             app:layout_constraintLeft_toLeftOf="@+id/txt_label_size"
             app:layout_constraintTop_toBottomOf="@+id/txt_label_size"
             app:layout_constraintVertical_bias="0.507"
+            />
+
+
+        <View
+            android:id="@+id/test_button"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:text="Button"
+            android:background="#000"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>
