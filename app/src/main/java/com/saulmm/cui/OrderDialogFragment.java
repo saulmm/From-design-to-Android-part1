@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,21 +57,29 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     }
 
     public void onGoButtonClick(View v) {
-        final Scene deliveryFormScene = Scene.getSceneForLayout(
-            binding.formContainer, R.layout.layout_form_order_step2, getContext());
+        final Scene deliveryFormScene = Scene.getSceneForLayout(binding.formContainer,
+            R.layout.layout_form_order_step2, getContext());
 
         ViewCompat.animate(binding.layoutStep1.getRoot()).alpha(0)
             .setInterpolator(new AccelerateInterpolator(1.5f))
             .setDuration(100)
-            .withEndAction(() -> TransitionManager.go(deliveryFormScene, null));
+            .withEndAction(() -> {
+                TransitionManager.go(deliveryFormScene, null);
+                configureStep2Listeners(deliveryFormScene.getSceneRoot());
+            });
 
         deliveryFormScene.setEnterAction(() -> {
-            deliveryFormScene.getSceneRoot().setTranslationX(binding.formContainer.getWidth());
+            deliveryFormScene.getSceneRoot().setTranslationX(
+                binding.formContainer.getWidth());
 
-        ViewCompat.animate(deliveryFormScene.getSceneRoot())
-            .translationX(0)
-            .start();
+            ViewCompat.animate(deliveryFormScene.getSceneRoot())
+                .translationX(0)
+                .setInterpolator(new DecelerateInterpolator(1.5f))
+                .start();
         });
+    }
+
+    private void configureStep2Listeners(ViewGroup sceneRoot) {
     }
 
     private void animateSelectedView(View v) {

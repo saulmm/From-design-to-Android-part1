@@ -98,4 +98,6 @@
     <string name="label_size">Size</string>
     <string name="label_prefered_date">Prefered date</string>
     <string name="label_prefered_time">Prefered time</string>
+    <string name="label_date">Prefered date</string>
+    <string name="label_time">Prefered time</string>
 </resources>
