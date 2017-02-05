@@ -81,7 +81,8 @@
 
             <include
                 android:id="@+id/layout_step1"
-                layout="@layout/layout_form_order_step1"/>
+                layout="@layout/layout_form_order_step1"
+                />
 
         </FrameLayout>
 
@@ -137,19 +138,6 @@
             app:layout_constraintLeft_toLeftOf="@+id/txt_label_size"
             app:layout_constraintTop_toBottomOf="@+id/txt_label_size"
             app:layout_constraintVertical_bias="0.507"
-            />
-
-
-        <View
-            android:id="@+id/test_button"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:text="Button"
-            android:background="#000"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>

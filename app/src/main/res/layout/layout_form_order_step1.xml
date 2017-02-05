@@ -37,11 +37,8 @@
 
         <TextView
             android:id="@+id/txt_1"
-            android:layout_width="@dimen/product_color_size"
-            android:layout_height="@dimen/product_color_size"
+            style="@style/Widget.Size"
             android:layout_marginTop="@dimen/spacing_large"
-            android:background="@drawable/selector_size"
-            android:gravity="center"
             android:text="1"
             android:textColor="@drawable/selector_size_text"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -51,12 +48,8 @@
 
         <TextView
             android:id="@+id/txt_2"
-            android:layout_width="@dimen/product_color_size"
-            android:layout_height="@dimen/product_color_size"
-            android:background="@drawable/circle_size_idle"
-            android:gravity="center"
+            style="@style/Widget.Size"
             android:text="2"
-            android:textColor="@color/blue_grey_900"
             app:layout_constraintBottom_toBottomOf="@+id/txt_1"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toRightOf="@+id/txt_1"
@@ -80,7 +73,6 @@
             android:id="@+id/txt_4"
             style="@style/Widget.Size"
             android:text="4"
-            android:textColor="@color/blue_grey_900"
             app:layout_constraintBottom_toBottomOf="@+id/txt_3"
             app:layout_constraintLeft_toRightOf="@+id/txt_3"
             app:layout_constraintRight_toLeftOf="@+id/txt_5"
