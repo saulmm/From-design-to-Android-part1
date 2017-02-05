@@ -32,7 +32,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/label_time"
             app:layout_constraintLeft_toLeftOf="@+id/txt_label_size"
-            app:layout_constraintTop_toBottomOf="@+id/date2"
+            app:layout_constraintTop_toBottomOf="@+id/container_date2"
             />
 
         <include
@@ -42,26 +42,26 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/date2"
-            app:layout_constraintRight_toLeftOf="@+id/date2"
-            app:layout_constraintTop_toTopOf="@+id/date2"
+            app:layout_constraintBottom_toBottomOf="@+id/container_date2"
+            app:layout_constraintRight_toLeftOf="@+id/container_date2"
+            app:layout_constraintTop_toTopOf="@+id/container_date2"
             app:layout_constraintVertical_bias="0.0"
             />
 
         <include
-            android:id="@+id/date3"
+            android:id="@+id/container_date3"
             layout="@layout/view_form_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/date2"
-            app:layout_constraintLeft_toRightOf="@+id/date2"
-            app:layout_constraintTop_toTopOf="@+id/date2"
+            app:layout_constraintBottom_toBottomOf="@+id/container_date2"
+            app:layout_constraintLeft_toRightOf="@+id/container_date2"
+            app:layout_constraintTop_toTopOf="@+id/container_date2"
             />
 
         <include
-            android:id="@+id/date2"
+            android:id="@+id/container_date2"
             layout="@layout/view_form_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
             />
 
         <include
-            android:id="@+id/time1"
+            android:id="@+id/container_time1"
             layout="@layout/view_form_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,28 +85,28 @@
             />
 
         <include
-            android:id="@+id/time2"
+            android:id="@+id/container_time2"
             layout="@layout/view_form_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="0dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/time1"
-            app:layout_constraintLeft_toRightOf="@+id/time1"
-            app:layout_constraintTop_toTopOf="@+id/time1"
+            app:layout_constraintBottom_toBottomOf="@+id/container_time1"
+            app:layout_constraintLeft_toRightOf="@+id/container_time1"
+            app:layout_constraintTop_toTopOf="@+id/container_time1"
             />
 
         <include
-            android:id="@+id/time3"
+            android:id="@+id/container_time3"
             layout="@layout/view_form_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/time1"
-            app:layout_constraintRight_toLeftOf="@+id/time1"
-            app:layout_constraintTop_toTopOf="@+id/time1"
+            app:layout_constraintBottom_toBottomOf="@+id/container_time1"
+            app:layout_constraintRight_toLeftOf="@+id/container_time1"
+            app:layout_constraintTop_toTopOf="@+id/container_time1"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>

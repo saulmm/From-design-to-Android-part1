@@ -15,8 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.saulmm.cui.databinding.FragmentOrderFormBinding;
@@ -26,6 +26,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class OrderDialogFragment extends BottomSheetDialogFragment {
+    public static final String ID_SIZE_SUFFIX = "txt_size";
+    public static final String ID_COLOR_SUFFIX = "img_color";
+    public static final String ID_DATE_SUFFIX = "container_date";
+    public static final String ID_TIME_SUFFIX = "container_time";
+
     private FragmentOrderFormBinding binding;
     private Transition selectedViewTransition;
 
@@ -49,11 +54,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         final View contentView = binding.getRoot();
         dialog.setContentView(contentView);
 
-        configureListeners(binding.layoutStep1);
-    }
-
-    public void onFormArgumentSelected(View v) {
-        animateSelectedView(v);
+        initOrderStepOneView(binding.layoutStep1);
     }
 
     public void onGoButtonClick(View v) {
@@ -78,37 +79,95 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         });
     }
 
-    private void initOrderStepTwoView(ViewGroup sceneRoot) {
-        final View.OnClickListener stepTwoListener = this::animateStepTwoSelectedView;
-
-        sceneRoot.findViewById(R.id.date1).setOnClickListener(stepTwoListener);
-        sceneRoot.findViewById(R.id.date2).setOnClickListener(stepTwoListener);
-        sceneRoot.findViewById(R.id.date3).setOnClickListener(stepTwoListener);
-    }
-
-    private void animateStepTwoSelectedView(View view) {
-        view.setSelected(true);
-    }
-
-
-    private void animateSelectedView(View v) {
-        v.setSelected(true);
+    private void transitionSelectedView(View v) {
         v.setVisibility(View.INVISIBLE);
 
-        final View selectedView = (v instanceof TextView)
-            ? createFakeSelectedSizeView((TextView) v)
-            : createFakeSelectedColorView((ImageView) v);
+        // Create the cloned view from the selected view at the same position
+        final View clonedView = createClonedView(v);
 
-        ((ViewGroup) binding.getRoot()).addView(selectedView);
+        // Add the cloned view to the constraint layout
+        ((ViewGroup) binding.getRoot()).addView(clonedView);
 
-        selectedView.post(() -> {
+        // Fire the transition by changing its constraint's layout params
+        startCloneAnimation(clonedView, getTargetView(v));
+    }
+
+    private void startCloneAnimation(View clonedView, View targetView) {
+        clonedView.post(() -> {
             if (getActivity() != null) {
                 TransitionManager.beginDelayedTransition(
                     (ViewGroup) binding.getRoot(), selectedViewTransition);
 
-                selectedView.setLayoutParams(createFakeEndParams(selectedView)); // Fire the transition
+                ConstraintLayout.LayoutParams fakeEndParams = createFakeEndParams(clonedView, targetView);
+                clonedView.setLayoutParams(fakeEndParams); // Fire the transition
             }
         });
+    }
+
+    private View createClonedView(View v) {
+        final String resourceName = getResources().getResourceEntryName(v.getId());
+        
+        if (resourceName.startsWith(ID_SIZE_SUFFIX))
+            return createFakeSelectedSizeView((TextView) v);
+
+        else if (resourceName.startsWith(ID_COLOR_SUFFIX))
+            return createFakeSelectedColorView((ImageView) v);
+
+        else if (resourceName.startsWith(ID_DATE_SUFFIX) ||
+            resourceName.startsWith(ID_TIME_SUFFIX))
+
+            return createFakeDateTimeContainerView(((LinearLayout) v));
+
+        throw new IllegalStateException();
+    }
+
+    private View getTargetView(View v) {
+        final String resourceName = getResources().getResourceEntryName(v.getId());
+
+        if (resourceName.startsWith(ID_SIZE_SUFFIX) ||
+            resourceName.startsWith(ID_DATE_SUFFIX))
+            return binding.txtLabelSize;
+
+        else if (resourceName.startsWith(ID_COLOR_SUFFIX) ||
+            resourceName.startsWith(ID_TIME_SUFFIX))
+            return binding.txtLabelColour;
+
+        throw new IllegalStateException();
+    }
+
+
+    private View createFakeDateTimeContainerView(LinearLayout v) {
+        LinearLayout datetimecontainer = (LinearLayout) LayoutInflater.from(getContext())
+            .inflate(R.layout.view_form_time, null);
+
+        datetimecontainer.setSelected(true);
+        return datetimecontainer;
+    }
+
+
+    private void initOrderStepOneView(LayoutFormOrderStep1Binding layoutStep1) {
+        View.OnClickListener formListener = this::transitionSelectedView;
+        binding.btnGo.setOnClickListener(this::onGoButtonClick);
+
+        layoutStep1.txtSize1.setOnClickListener(formListener);
+        layoutStep1.txtSize2.setOnClickListener(formListener);
+        layoutStep1.txtSize3.setOnClickListener(formListener);
+        layoutStep1.txtSize4.setOnClickListener(formListener);
+        layoutStep1.txtSize5.setOnClickListener(formListener);
+
+        layoutStep1.imgColorBlue.setOnClickListener(formListener);
+        layoutStep1.imgColorGreen.setOnClickListener(formListener);
+        layoutStep1.imgColorPurple.setOnClickListener(formListener);
+        layoutStep1.imgColorRed.setOnClickListener(formListener);
+        layoutStep1.imgColorYellow.setOnClickListener(formListener);
+    }
+
+    private void initOrderStepTwoView(ViewGroup sceneRoot) {
+        final View.OnClickListener stepTwoListener = this::transitionSelectedView;
+
+        sceneRoot.findViewById(R.id.date1).setOnClickListener(stepTwoListener);
+        sceneRoot.findViewById(R.id.date2).setOnClickListener(stepTwoListener);
+        sceneRoot.findViewById(R.id.date3).setOnClickListener(stepTwoListener);
     }
 
     private View createFakeSelectedSizeView(TextView textView) {
@@ -130,33 +189,19 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         return fakeImageView;
     }
 
-    private ConstraintLayout.LayoutParams createFakeEndParams(View v) {
+    private ConstraintLayout.LayoutParams createFakeEndParams(View v, View targetView) {
         final ConstraintLayout.LayoutParams layoutParams =
             (ConstraintLayout.LayoutParams) v.getLayoutParams();
 
-        int marginLeft = getContext().getResources()
+        final int marginLeft = getContext().getResources()
             .getDimensionPixelOffset(R.dimen.spacing_medium);
 
         layoutParams.setMargins(marginLeft, 0, 0, 0);
-
-        if (v instanceof TextView)
-            setParamsForSize(layoutParams);
-        else
-            setParamsForColor(layoutParams);
+        layoutParams.topToTop = targetView.getId();
+        layoutParams.startToEnd = targetView.getId();
+        layoutParams.bottomToBottom = targetView.getId();
 
         return layoutParams;
-    }
-
-    private void setParamsForColor(ConstraintLayout.LayoutParams layoutParams) {
-        layoutParams.topToTop = binding.txtLabelColour.getId();
-        layoutParams.startToEnd = binding.txtLabelColour.getId();
-        layoutParams.bottomToBottom = binding.txtLabelColour.getId();
-    }
-
-    private void setParamsForSize(ConstraintLayout.LayoutParams layoutParams) {
-        layoutParams.topToTop = binding.txtLabelSize.getId();
-        layoutParams.startToEnd = binding.txtLabelSize.getId();
-        layoutParams.baselineToBaseline = binding.txtLabelSize.getId();
     }
 
     private ConstraintLayout.LayoutParams createFakeInitParams(View v) {
@@ -169,22 +214,5 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         layoutParams.leftToLeft = binding.formContainer.getId();
         layoutParams.setMargins((int) v.getX(), (int) v.getY(), 0, 0);
         return layoutParams;
-    }
-
-    private void configureListeners(LayoutFormOrderStep1Binding layoutStep1) {
-        View.OnClickListener formListener = this::onFormArgumentSelected;
-        binding.btnGo.setOnClickListener(this::onGoButtonClick);
-
-        layoutStep1.txt1.setOnClickListener(formListener);
-        layoutStep1.txt2.setOnClickListener(formListener);
-        layoutStep1.txt3.setOnClickListener(formListener);
-        layoutStep1.txt4.setOnClickListener(formListener);
-        layoutStep1.txt5.setOnClickListener(formListener);
-
-        layoutStep1.imgColorBlue.setOnClickListener(formListener);
-        layoutStep1.imgColorGreen.setOnClickListener(formListener);
-        layoutStep1.imgColorPurple.setOnClickListener(formListener);
-        layoutStep1.imgColorRed.setOnClickListener(formListener);
-        layoutStep1.imgColorYellow.setOnClickListener(formListener);
     }
 }
