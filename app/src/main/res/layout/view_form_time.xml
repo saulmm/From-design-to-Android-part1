@@ -9,14 +9,14 @@
     android:paddingRight="16sp"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/square_date_idle"
+    android:background="@drawable/bg_square_date"
     tools:showIn="@layout/layout_form_order_step2"
     >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/blue_grey_400"
+        android:textColor="@drawable/selector_order_text_light"
         android:textSize="12sp"
         android:text="Tomorrow"
         />
@@ -24,7 +24,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/blue_grey_400"
+        android:textColor="@drawable/selector_order_text_light"
         android:layout_marginTop="4dp"
         android:textSize="18sp"
         android:text="02"

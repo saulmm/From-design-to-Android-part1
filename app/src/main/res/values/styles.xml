@@ -4,8 +4,8 @@
     <style name="Widget.Size">
         <item name="android:layout_width">@dimen/product_color_size</item>
         <item name="android:layout_height">@dimen/product_color_size</item>
-        <item name="android:background">@drawable/selector_size</item>
-        <item name="android:textColor">@drawable/selector_size_text</item>
+        <item name="android:background">@drawable/bg_circle_size</item>
+        <item name="android:textColor">@drawable/selector_order_text</item>
         <item name="android:gravity">center</item>
     </style>
 

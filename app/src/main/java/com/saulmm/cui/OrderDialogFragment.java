@@ -63,24 +63,33 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         ViewCompat.animate(binding.layoutStep1.getRoot()).alpha(0)
             .setInterpolator(new AccelerateInterpolator(1.5f))
             .setDuration(100)
-            .withEndAction(() -> {
-                TransitionManager.go(deliveryFormScene, null);
-                configureStep2Listeners(deliveryFormScene.getSceneRoot());
-            });
+            .withEndAction(() -> TransitionManager
+                .go(deliveryFormScene, null));
 
         deliveryFormScene.setEnterAction(() -> {
+            initOrderStepTwoView(deliveryFormScene.getSceneRoot());
+
             deliveryFormScene.getSceneRoot().setTranslationX(
                 binding.formContainer.getWidth());
 
             ViewCompat.animate(deliveryFormScene.getSceneRoot())
                 .translationX(0)
-                .setInterpolator(new DecelerateInterpolator(1.5f))
                 .start();
         });
     }
 
-    private void configureStep2Listeners(ViewGroup sceneRoot) {
+    private void initOrderStepTwoView(ViewGroup sceneRoot) {
+        final View.OnClickListener stepTwoListener = this::animateStepTwoSelectedView;
+
+        sceneRoot.findViewById(R.id.date1).setOnClickListener(stepTwoListener);
+        sceneRoot.findViewById(R.id.date2).setOnClickListener(stepTwoListener);
+        sceneRoot.findViewById(R.id.date3).setOnClickListener(stepTwoListener);
     }
+
+    private void animateStepTwoSelectedView(View view) {
+        view.setSelected(true);
+    }
+
 
     private void animateSelectedView(View v) {
         v.setSelected(true);

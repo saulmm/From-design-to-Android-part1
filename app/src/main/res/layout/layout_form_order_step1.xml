@@ -36,7 +36,7 @@
             style="@style/Widget.Size"
             android:layout_marginTop="@dimen/spacing_large"
             android:text="1"
-            android:textColor="@drawable/selector_size_text"
+            android:textColor="@drawable/selector_order_text"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/txt_2"
             app:layout_constraintTop_toBottomOf="@+id/txt_label_size"
