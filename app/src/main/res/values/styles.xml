@@ -13,4 +13,10 @@
         <item name="android:layout_width">@dimen/product_color_size</item>
         <item name="android:layout_height">@dimen/product_color_size</item>
     </style>
+
+    <style name="Widget.Label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/blue_grey_400</item>
+    </style>
 </resources>

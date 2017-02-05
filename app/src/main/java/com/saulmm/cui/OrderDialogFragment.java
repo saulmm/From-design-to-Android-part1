@@ -6,12 +6,15 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v4.view.ViewCompat;
+import android.transition.Scene;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +24,7 @@ import com.saulmm.cui.databinding.LayoutFormOrderStep1Binding;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class OrderDialogFragment extends BottomSheetDialogFragment implements View.OnClickListener {
+public class OrderDialogFragment extends BottomSheetDialogFragment {
     private FragmentOrderFormBinding binding;
     private Transition selectedViewTransition;
 
@@ -42,14 +45,35 @@ public class OrderDialogFragment extends BottomSheetDialogFragment implements Vi
         selectedViewTransition = TransitionInflater.from(getContext())
             .inflateTransition(R.transition.move);
 
-
         final View contentView = binding.getRoot();
         dialog.setContentView(contentView);
 
         configureListeners(binding.layoutStep1);
     }
 
-    public void onClick(View v) {
+    public void onFormArgumentSelected(View v) {
+        animateSelectedView(v);
+    }
+
+    public void onGoButtonClick(View v) {
+        final Scene deliveryFormScene = Scene.getSceneForLayout(
+            binding.formContainer, R.layout.layout_form_order_step2, getContext());
+
+        ViewCompat.animate(binding.layoutStep1.getRoot()).alpha(0)
+            .setInterpolator(new AccelerateInterpolator(1.5f))
+            .setDuration(100)
+            .withEndAction(() -> TransitionManager.go(deliveryFormScene, null));
+
+        deliveryFormScene.setEnterAction(() -> {
+            deliveryFormScene.getSceneRoot().setTranslationX(binding.formContainer.getWidth());
+
+        ViewCompat.animate(deliveryFormScene.getSceneRoot())
+            .translationX(0)
+            .start();
+        });
+    }
+
+    private void animateSelectedView(View v) {
         v.setSelected(true);
         v.setVisibility(View.INVISIBLE);
 
@@ -59,10 +83,6 @@ public class OrderDialogFragment extends BottomSheetDialogFragment implements Vi
 
         ((ViewGroup) binding.getRoot()).addView(selectedView);
 
-        startTransition(selectedView);
-    }
-
-    private void startTransition(View selectedView) {
         selectedView.post(() -> {
             if (getActivity() != null) {
                 TransitionManager.beginDelayedTransition(
@@ -134,16 +154,19 @@ public class OrderDialogFragment extends BottomSheetDialogFragment implements Vi
     }
 
     private void configureListeners(LayoutFormOrderStep1Binding layoutStep1) {
-        layoutStep1.txt1.setOnClickListener(this);
-        layoutStep1.txt2.setOnClickListener(this);
-        layoutStep1.txt3.setOnClickListener(this);
-        layoutStep1.txt4.setOnClickListener(this);
-        layoutStep1.txt5.setOnClickListener(this);
+        View.OnClickListener formListener = this::onFormArgumentSelected;
+        binding.btnGo.setOnClickListener(this::onGoButtonClick);
 
-        layoutStep1.imgColorBlue.setOnClickListener(this);
-        layoutStep1.imgColorGreen.setOnClickListener(this);
-        layoutStep1.imgColorPurple.setOnClickListener(this);
-        layoutStep1.imgColorRed.setOnClickListener(this);
-        layoutStep1.imgColorYellow.setOnClickListener(this);
+        layoutStep1.txt1.setOnClickListener(formListener);
+        layoutStep1.txt2.setOnClickListener(formListener);
+        layoutStep1.txt3.setOnClickListener(formListener);
+        layoutStep1.txt4.setOnClickListener(formListener);
+        layoutStep1.txt5.setOnClickListener(formListener);
+
+        layoutStep1.imgColorBlue.setOnClickListener(formListener);
+        layoutStep1.imgColorGreen.setOnClickListener(formListener);
+        layoutStep1.imgColorPurple.setOnClickListener(formListener);
+        layoutStep1.imgColorRed.setOnClickListener(formListener);
+        layoutStep1.imgColorYellow.setOnClickListener(formListener);
     }
 }

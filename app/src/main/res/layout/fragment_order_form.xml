@@ -40,7 +40,6 @@
             android:textColor="@color/blue_grey_900"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_product"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toRightOf="@+id/img_product"
             app:layout_constraintRight_toLeftOf="@+id/txt_price"
@@ -53,14 +52,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginRight="16dp"
             android:drawablePadding="@dimen/spacing_large"
             android:drawableRight="@drawable/vd_down_arrow"
             android:gravity="center_vertical"
             android:text="45 $"
             android:textSize="@dimen/font_size_medium"
             app:layout_constraintBaseline_toBaselineOf="@+id/txt_name"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toRightOf="@+id/txt_name"
             app:layout_constraintRight_toRightOf="parent"
             />
@@ -70,7 +68,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:paddingBottom="42dp"
             android:clickable="true"
             android:foreground="?selectableItemBackgroundBorderless"
             app:layout_constraintHorizontal_bias="0.0"
@@ -119,7 +116,6 @@
             app:layout_constraintBottom_toTopOf="@+id/txt_label_colour"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/form_container"
-            app:layout_constraintVertical_bias="0.5"
             />
 
         <TextView
@@ -127,8 +123,6 @@
             android:layout_width="wrap_content"
             android:layout_height="17dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="-8dp"
-            android:layout_marginStart="-8dp"
             android:layout_marginTop="8dp"
             android:fontFamily="sans-serif"
             android:text="@string/txt_label_colour"
