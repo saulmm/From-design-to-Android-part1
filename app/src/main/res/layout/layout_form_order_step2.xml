@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -36,7 +36,7 @@
             />
 
         <include
-            android:id="@+id/date1"
+            android:id="@+id/container_date1"
             layout="@layout/view_form_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,6 +95,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/container_time1"
             app:layout_constraintLeft_toRightOf="@+id/container_time1"
             app:layout_constraintTop_toTopOf="@+id/container_time1"
+            app:layout_constraintVertical_bias="0.0"
             />
 
         <include

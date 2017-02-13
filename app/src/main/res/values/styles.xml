@@ -9,6 +9,11 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="Widget.SelectedItem">
+        <item name="android:textColor">@color/blue_grey_900</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
     <style name="Widget.Color">
         <item name="android:layout_width">@dimen/product_color_size</item>
         <item name="android:layout_height">@dimen/product_color_size</item>

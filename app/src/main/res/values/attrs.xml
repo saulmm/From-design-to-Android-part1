@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="sizeStyle" format="reference" />
+    <attr name="selectedTextStyle" format="reference" />
     <attr name="colorStyle" format="reference" />
 </resources>

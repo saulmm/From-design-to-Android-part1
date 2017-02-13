@@ -115,8 +115,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
         else if (resourceName.startsWith(ID_DATE_SUFFIX) ||
             resourceName.startsWith(ID_TIME_SUFFIX))
-
-            return createFakeDateTimeContainerView(((LinearLayout) v));
+            return createFakeSelectedTextView(v);
 
         throw new IllegalStateException();
     }
@@ -134,16 +133,6 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
         throw new IllegalStateException();
     }
-
-
-    private View createFakeDateTimeContainerView(LinearLayout v) {
-        LinearLayout datetimecontainer = (LinearLayout) LayoutInflater.from(getContext())
-            .inflate(R.layout.view_form_time, null);
-
-        datetimecontainer.setSelected(true);
-        return datetimecontainer;
-    }
-
 
     private void initOrderStepOneView(LayoutFormOrderStep1Binding layoutStep1) {
         View.OnClickListener formListener = this::transitionSelectedView;
@@ -165,9 +154,22 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     private void initOrderStepTwoView(ViewGroup sceneRoot) {
         final View.OnClickListener stepTwoListener = this::transitionSelectedView;
 
-        sceneRoot.findViewById(R.id.date1).setOnClickListener(stepTwoListener);
-        sceneRoot.findViewById(R.id.date2).setOnClickListener(stepTwoListener);
-        sceneRoot.findViewById(R.id.date3).setOnClickListener(stepTwoListener);
+        sceneRoot.findViewById(R.id.container_date1).setOnClickListener(stepTwoListener);
+        sceneRoot.findViewById(R.id.container_date2).setOnClickListener(stepTwoListener);
+        sceneRoot.findViewById(R.id.container_date3).setOnClickListener(stepTwoListener);
+
+        sceneRoot.findViewById(R.id.container_time1).setOnClickListener(stepTwoListener);
+        sceneRoot.findViewById(R.id.container_time2).setOnClickListener(stepTwoListener);
+        sceneRoot.findViewById(R.id.container_time3).setOnClickListener(stepTwoListener);
+    }
+
+    private View createFakeSelectedTextView(View v) {
+        final TextView fakeSelectedTextView = new TextView(
+            getContext(), null, R.attr.selectedTextStyle);
+
+        fakeSelectedTextView.setText("This is a test"); // TODO, set the proper text
+        fakeSelectedTextView.setLayoutParams(createNewViewLayoutParams(v));
+        return fakeSelectedTextView;
     }
 
     private View createFakeSelectedSizeView(TextView textView) {
@@ -175,7 +177,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
             getContext(), null, R.attr.sizeStyle);
 
         fakeSelectedView.setText(textView.getText());
-        fakeSelectedView.setLayoutParams(createFakeInitParams(textView));
+        fakeSelectedView.setLayoutParams(createCloneLayoutParams(textView));
         fakeSelectedView.setSelected(true);
         return fakeSelectedView;
     }
@@ -185,7 +187,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
             getContext(), null, R.attr.colorStyle);
 
         fakeImageView.setImageDrawable(imageView.getDrawable());
-        fakeImageView.setLayoutParams(createFakeInitParams(imageView));
+        fakeImageView.setLayoutParams(createCloneLayoutParams(imageView));
         return fakeImageView;
     }
 
@@ -204,11 +206,21 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         return layoutParams;
     }
 
-    private ConstraintLayout.LayoutParams createFakeInitParams(View v) {
-        final int selectedViewSize = getResources().getDimensionPixelSize(R.dimen.product_color_size);
-
+    private ConstraintLayout.LayoutParams createCloneLayoutParams(View v) {
         final ConstraintLayout.LayoutParams layoutParams =
-            new ConstraintLayout.LayoutParams(selectedViewSize, selectedViewSize);
+            new ConstraintLayout.LayoutParams(v.getWidth(), v.getHeight());
+
+        layoutParams.topToTop = binding.formContainer.getId();
+        layoutParams.leftToLeft = binding.formContainer.getId();
+        layoutParams.setMargins((int) v.getX(), (int) v.getY(), 0, 0);
+        return layoutParams;
+    }
+
+    private ConstraintLayout.LayoutParams createNewViewLayoutParams(View v) {
+        final ConstraintLayout.LayoutParams layoutParams =
+            new ConstraintLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
 
         layoutParams.topToTop = binding.formContainer.getId();
         layoutParams.leftToLeft = binding.formContainer.getId();
