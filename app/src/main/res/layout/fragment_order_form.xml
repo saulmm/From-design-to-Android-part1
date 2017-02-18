@@ -5,133 +5,143 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
-    <android.support.constraint.ConstraintLayout
+    <FrameLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:background="@color/white"
         >
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_product"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:layout_marginLeft="@dimen/spacing_huge"
-            android:layout_marginStart="@dimen/spacing_huge"
-            android:layout_marginTop="@dimen/spacing_huge"
-            android:src="@color/product_blue"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:ignore="ContentDescription"
-            />
-
-        <TextView
-            android:id="@+id/txt_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="8dp"
-            android:text="The skydriver"
-            android:textColor="@color/blue_grey_900"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/img_product"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@+id/img_product"
-            app:layout_constraintRight_toLeftOf="@+id/txt_price"
-            app:layout_constraintTop_toTopOf="@+id/img_product"
-            app:layout_constraintVertical_bias="0.110000014"
-            />
-
-        <TextView
-            android:id="@+id/txt_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:drawablePadding="@dimen/spacing_large"
-            android:drawableRight="@drawable/vd_down_arrow"
-            android:gravity="center_vertical"
-            android:text="45 $"
-            android:textSize="@dimen/font_size_medium"
-            app:layout_constraintBaseline_toBaselineOf="@+id/txt_name"
-            app:layout_constraintLeft_toRightOf="@+id/txt_name"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-
-        <FrameLayout
-            android:id="@+id/form_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:clickable="true"
-            android:foreground="?selectableItemBackgroundBorderless"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_product"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/main_container"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
             >
 
-            <include
-                android:id="@+id/layout_step1"
-                layout="@layout/layout_form_order_step1"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_product"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginLeft="@dimen/spacing_huge"
+                android:layout_marginStart="@dimen/spacing_huge"
+                android:layout_marginTop="@dimen/spacing_huge"
+                android:src="@color/product_blue"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:ignore="ContentDescription"
                 />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/btn_go"
-            android:layout_width="200dp"
-            android:layout_height="125dp"
-            android:background="@color/product_purple"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/form_container"
-            >
 
             <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="8dp"
+                android:text="The skydriver"
+                android:textColor="@color/blue_grey_900"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_product"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toRightOf="@+id/img_product"
+                app:layout_constraintRight_toLeftOf="@+id/txt_price"
+                app:layout_constraintTop_toTopOf="@+id/img_product"
+                app:layout_constraintVertical_bias="0.110000014"
+                />
+
+            <TextView
+                android:id="@+id/txt_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/btn_go"
-                android:textColor="@color/white"
-                android:textSize="38sp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:drawablePadding="@dimen/spacing_large"
+                android:drawableRight="@drawable/vd_down_arrow"
+                android:gravity="center_vertical"
+                android:text="45 $"
+                android:textSize="@dimen/font_size_medium"
+                app:layout_constraintBaseline_toBaselineOf="@+id/txt_name"
+                app:layout_constraintLeft_toRightOf="@+id/txt_name"
+                app:layout_constraintRight_toRightOf="parent"
                 />
-        </FrameLayout>
 
-        <TextView
-            android:id="@+id/txt_label_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/txt_label_size"
-            android:textColor="@color/blue_grey_900"
-            android:textSize="@dimen/font_size_medium"
-            app:layout_constraintBottom_toTopOf="@+id/txt_label_colour"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/form_container"
-            />
+            <FrameLayout
+                android:id="@+id/form_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                android:foreground="?selectableItemBackgroundBorderless"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_product"
+                >
 
-        <TextView
-            android:id="@+id/txt_label_colour"
-            android:layout_width="wrap_content"
-            android:layout_height="17dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/txt_label_colour"
-            android:textColor="@color/blue_grey_900"
-            android:textSize="@dimen/font_size_medium"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@+id/txt_label_size"
-            app:layout_constraintTop_toBottomOf="@+id/txt_label_size"
-            app:layout_constraintVertical_bias="0.507"
-            />
-    </android.support.constraint.ConstraintLayout>
+                <include
+                    android:id="@+id/layout_step1"
+                    layout="@layout/layout_form_order_step1"
+                    />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/btn_go"
+                android:layout_width="150dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/product_purple"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/form_container"
+                >
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/btn_go"
+                    android:textColor="@color/white"
+                    android:textSize="38sp"
+                    />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/txt_label_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/txt_label_size"
+                android:textColor="@color/blue_grey_900"
+                android:textSize="@dimen/font_size_medium"
+                app:layout_constraintBottom_toTopOf="@+id/txt_label_colour"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/form_container"
+                />
+
+            <TextView
+                android:id="@+id/txt_label_colour"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/txt_label_colour"
+                android:textColor="@color/blue_grey_900"
+                android:textSize="@dimen/font_size_medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@+id/txt_label_size"
+                app:layout_constraintTop_toBottomOf="@+id/txt_label_size"
+                app:layout_constraintVertical_bias="0.507"
+                />
+        </android.support.constraint.ConstraintLayout>
+    </FrameLayout>
+
 </layout>

@@ -3,6 +3,7 @@ package com.saulmm.cui;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -38,45 +39,48 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         return new OrderDialogFragment();
     }
 
-    @NonNull
+    @Nullable
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+
+        binding = FragmentOrderFormBinding.inflate(
+            LayoutInflater.from(getContext()), container, false);
+
+        return binding.getRoot();
     }
 
     @Override
-    public void setupDialog(Dialog dialog, int style) {
-        binding = FragmentOrderFormBinding.inflate(LayoutInflater.from(getContext()));
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         selectedViewTransition = TransitionInflater.from(getContext())
             .inflateTransition(R.transition.move);
-
-        final View contentView = binding.getRoot();
-        dialog.setContentView(contentView);
 
         initOrderStepOneView(binding.layoutStep1);
     }
 
     public void onGoButtonClick(View v) {
-        final Scene deliveryFormScene = Scene.getSceneForLayout(binding.formContainer,
-            R.layout.layout_form_order_step2, getContext());
-
-        ViewCompat.animate(binding.layoutStep1.getRoot()).alpha(0)
-            .setInterpolator(new AccelerateInterpolator(1.5f))
-            .setDuration(100)
-            .withEndAction(() -> TransitionManager
-                .go(deliveryFormScene, null));
-
-        deliveryFormScene.setEnterAction(() -> {
-            initOrderStepTwoView(deliveryFormScene.getSceneRoot());
-
-            deliveryFormScene.getSceneRoot().setTranslationX(
-                binding.formContainer.getWidth());
-
-            ViewCompat.animate(deliveryFormScene.getSceneRoot())
-                .translationX(0)
-                .start();
-        });
+        changeToConfirmScene();
+//        final Scene deliveryFormScene = Scene.getSceneForLayout(binding.formContainer,
+//            R.layout.layout_form_order_step2, getContext());
+//
+//        ViewCompat.animate(binding.layoutStep1.getRoot()).alpha(0)
+//            .setInterpolator(new AccelerateInterpolator(1.5f))
+//            .setDuration(100)
+//            .withEndAction(() -> TransitionManager
+//                .go(deliveryFormScene, null));
+//
+//        deliveryFormScene.setEnterAction(() -> {
+//            initOrderStepTwoView(deliveryFormScene.getSceneRoot());
+//
+//            deliveryFormScene.getSceneRoot().setTranslationX(
+//                binding.formContainer.getWidth());
+//
+//            ViewCompat.animate(deliveryFormScene.getSceneRoot())
+//                .translationX(0)
+//                .start();
+//        });
     }
 
     private void transitionSelectedView(View v) {
@@ -226,5 +230,15 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         layoutParams.leftToLeft = binding.formContainer.getId();
         layoutParams.setMargins((int) v.getX(), (int) v.getY(), 0, 0);
         return layoutParams;
+    }
+
+    private void changeToConfirmScene() {
+        Scene scene = Scene.getSceneForLayout(binding.content,
+            R.layout.fragment_order_form2, getContext());
+
+        Transition transition = TransitionInflater.from(getContext())
+            .inflateTransition(R.transition.move);
+
+        TransitionManager.go(scene, transition);
     }
 }
