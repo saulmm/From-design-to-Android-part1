@@ -1,6 +1,7 @@
 package com.saulmm.cui;
 
 import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,6 +36,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     private FragmentOrderFormBinding binding;
     private Transition selectedViewTransition;
 
+
     public static OrderDialogFragment newInstance() {
         return new OrderDialogFragment();
     }
@@ -60,27 +62,27 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         initOrderStepOneView(binding.layoutStep1);
     }
 
-    public void onGoButtonClick(View v) {
-        changeToConfirmScene();
-//        final Scene deliveryFormScene = Scene.getSceneForLayout(binding.formContainer,
-//            R.layout.layout_form_order_step2, getContext());
-//
-//        ViewCompat.animate(binding.layoutStep1.getRoot()).alpha(0)
-//            .setInterpolator(new AccelerateInterpolator(1.5f))
-//            .setDuration(100)
-//            .withEndAction(() -> TransitionManager
-//                .go(deliveryFormScene, null));
-//
-//        deliveryFormScene.setEnterAction(() -> {
-//            initOrderStepTwoView(deliveryFormScene.getSceneRoot());
-//
-//            deliveryFormScene.getSceneRoot().setTranslationX(
-//                binding.formContainer.getWidth());
-//
-//            ViewCompat.animate(deliveryFormScene.getSceneRoot())
-//                .translationX(0)
-//                .start();
-//        });
+
+    private void transitionTwoSecondStep(View v) {
+        final Scene deliveryFormScene = Scene.getSceneForLayout(binding.formContainer,
+            R.layout.layout_form_order_step2, getContext());
+
+        ViewCompat.animate(binding.layoutStep1.getRoot()).alpha(0)
+            .setInterpolator(new AccelerateInterpolator(1.5f))
+            .setDuration(100)
+            .withEndAction(() -> TransitionManager
+                .go(deliveryFormScene, null));
+
+        deliveryFormScene.setEnterAction(() -> {
+            initOrderStepTwoView(deliveryFormScene.getSceneRoot());
+
+            deliveryFormScene.getSceneRoot().setTranslationX(
+                binding.formContainer.getWidth());
+
+            ViewCompat.animate(deliveryFormScene.getSceneRoot())
+                .translationX(0)
+                .start();
+        });
     }
 
     private void transitionSelectedView(View v) {
@@ -90,7 +92,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         final View clonedView = createClonedView(v);
 
         // Add the cloned view to the constraint layout
-        ((ViewGroup) binding.getRoot()).addView(clonedView);
+        binding.mainContainer.addView(clonedView);
 
         // Fire the transition by changing its constraint's layout params
         startCloneAnimation(clonedView, getTargetView(v));
@@ -111,16 +113,16 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     private View createClonedView(View v) {
         final String resourceName = getResources().getResourceEntryName(v.getId());
         
-        if (resourceName.startsWith(ID_SIZE_SUFFIX))
+        if (resourceName.startsWith(ID_SIZE_SUFFIX)) {
             return createFakeSelectedSizeView((TextView) v);
 
-        else if (resourceName.startsWith(ID_COLOR_SUFFIX))
+        } else if (resourceName.startsWith(ID_COLOR_SUFFIX)) {
             return createFakeSelectedColorView((ImageView) v);
 
-        else if (resourceName.startsWith(ID_DATE_SUFFIX) ||
-            resourceName.startsWith(ID_TIME_SUFFIX))
+        } else if (resourceName.startsWith(ID_DATE_SUFFIX) ||
+            resourceName.startsWith(ID_TIME_SUFFIX)) {
             return createFakeSelectedTextView(v);
-
+        }
         throw new IllegalStateException();
     }
 
@@ -139,32 +141,31 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     }
 
     private void initOrderStepOneView(LayoutFormOrderStep1Binding layoutStep1) {
-        View.OnClickListener formListener = this::transitionSelectedView;
-        binding.btnGo.setOnClickListener(this::onGoButtonClick);
+        final View.OnClickListener onStepOneViewClick = this::transitionSelectedView;
+        binding.btnGo.setOnClickListener(this::transitionTwoSecondStep);
 
-        layoutStep1.txtSize1.setOnClickListener(formListener);
-        layoutStep1.txtSize2.setOnClickListener(formListener);
-        layoutStep1.txtSize3.setOnClickListener(formListener);
-        layoutStep1.txtSize4.setOnClickListener(formListener);
-        layoutStep1.txtSize5.setOnClickListener(formListener);
-
-        layoutStep1.imgColorBlue.setOnClickListener(formListener);
-        layoutStep1.imgColorGreen.setOnClickListener(formListener);
-        layoutStep1.imgColorPurple.setOnClickListener(formListener);
-        layoutStep1.imgColorRed.setOnClickListener(formListener);
-        layoutStep1.imgColorYellow.setOnClickListener(formListener);
+        layoutStep1.txtSize1.setOnClickListener(onStepOneViewClick);
+        layoutStep1.txtSize2.setOnClickListener(onStepOneViewClick);
+        layoutStep1.txtSize3.setOnClickListener(onStepOneViewClick);
+        layoutStep1.txtSize4.setOnClickListener(onStepOneViewClick);
+        layoutStep1.txtSize5.setOnClickListener(onStepOneViewClick);
+        layoutStep1.imgColorBlue.setOnClickListener(onStepOneViewClick);
+        layoutStep1.imgColorGreen.setOnClickListener(onStepOneViewClick);
+        layoutStep1.imgColorPurple.setOnClickListener(onStepOneViewClick);
+        layoutStep1.imgColorRed.setOnClickListener(onStepOneViewClick);
+        layoutStep1.imgColorYellow.setOnClickListener(onStepOneViewClick);
     }
 
     private void initOrderStepTwoView(ViewGroup sceneRoot) {
-        final View.OnClickListener stepTwoListener = this::transitionSelectedView;
+        final View.OnClickListener onStepTwoViewClick = this::transitionSelectedView;
+        binding.btnGo.setOnClickListener(v -> changeToConfirmScene());
 
-        sceneRoot.findViewById(R.id.container_date1).setOnClickListener(stepTwoListener);
-        sceneRoot.findViewById(R.id.container_date2).setOnClickListener(stepTwoListener);
-        sceneRoot.findViewById(R.id.container_date3).setOnClickListener(stepTwoListener);
-
-        sceneRoot.findViewById(R.id.container_time1).setOnClickListener(stepTwoListener);
-        sceneRoot.findViewById(R.id.container_time2).setOnClickListener(stepTwoListener);
-        sceneRoot.findViewById(R.id.container_time3).setOnClickListener(stepTwoListener);
+        sceneRoot.findViewById(R.id.container_date1).setOnClickListener(onStepTwoViewClick);
+        sceneRoot.findViewById(R.id.container_date2).setOnClickListener(onStepTwoViewClick);
+        sceneRoot.findViewById(R.id.container_date3).setOnClickListener(onStepTwoViewClick);
+        sceneRoot.findViewById(R.id.container_time1).setOnClickListener(onStepTwoViewClick);
+        sceneRoot.findViewById(R.id.container_time2).setOnClickListener(onStepTwoViewClick);
+        sceneRoot.findViewById(R.id.container_time3).setOnClickListener(onStepTwoViewClick);
     }
 
     private View createFakeSelectedTextView(View v) {
@@ -180,8 +181,8 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         final TextView fakeSelectedView = new TextView(
             getContext(), null, R.attr.sizeStyle);
 
-        fakeSelectedView.setText(textView.getText());
         fakeSelectedView.setLayoutParams(createCloneLayoutParams(textView));
+        fakeSelectedView.setText(textView.getText());
         fakeSelectedView.setSelected(true);
         return fakeSelectedView;
     }
@@ -233,10 +234,10 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     }
 
     private void changeToConfirmScene() {
-        Scene scene = Scene.getSceneForLayout(binding.content,
+        final Scene scene = Scene.getSceneForLayout(binding.content,
             R.layout.fragment_order_form2, getContext());
 
-        Transition transition = TransitionInflater.from(getContext())
+        final Transition transition = TransitionInflater.from(getContext())
             .inflateTransition(R.transition.move);
 
         TransitionManager.go(scene, transition);
