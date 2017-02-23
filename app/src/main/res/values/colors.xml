@@ -7,6 +7,7 @@
     <color name="white">#FFF</color>
     <color name="grey_800">#565656</color>
     <color name="blue_grey_400">#90A4AE</color>
+    <color name="blue_grey_700">#455a64</color>
     <color name="blue_grey_900">#37474F</color>
 
     <color name="product_yellow">#FDBC56</color>

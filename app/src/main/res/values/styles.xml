@@ -6,6 +6,8 @@
         <item name="android:layout_height">@dimen/product_color_size</item>
         <item name="android:background">@drawable/bg_circle_size</item>
         <item name="android:textColor">@drawable/selector_order_text</item>
+        <item name="android:textSize">@dimen/font_size_medium</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:gravity">center</item>
     </style>
 
@@ -23,5 +25,6 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/blue_grey_400</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 </resources>

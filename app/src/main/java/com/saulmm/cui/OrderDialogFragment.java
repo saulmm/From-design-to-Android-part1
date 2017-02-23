@@ -86,7 +86,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     }
 
     private void transitionSelectedView(View v) {
-        v.setVisibility(View.INVISIBLE);
+        v.setSelected(true);
 
         // Create the cloned view from the selected view at the same position
         final View clonedView = createClonedView(v);
@@ -112,18 +112,10 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
     private View createClonedView(View v) {
         final String resourceName = getResources().getResourceEntryName(v.getId());
-        
-        if (resourceName.startsWith(ID_SIZE_SUFFIX)) {
-            return createFakeSelectedSizeView((TextView) v);
 
-        } else if (resourceName.startsWith(ID_COLOR_SUFFIX)) {
-            return createFakeSelectedColorView((ImageView) v);
-
-        } else if (resourceName.startsWith(ID_DATE_SUFFIX) ||
-            resourceName.startsWith(ID_TIME_SUFFIX)) {
-            return createFakeSelectedTextView(v);
-        }
-        throw new IllegalStateException();
+        return (resourceName.startsWith(ID_COLOR_SUFFIX))
+            ? createFakeSelectedColorView((ImageView) v)
+            : createFakeSelectedTextView(v);
     }
 
     private View getTargetView(View v) {
@@ -175,16 +167,6 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         fakeSelectedTextView.setText("This is a test"); // TODO, set the proper text
         fakeSelectedTextView.setLayoutParams(createNewViewLayoutParams(v));
         return fakeSelectedTextView;
-    }
-
-    private View createFakeSelectedSizeView(TextView textView) {
-        final TextView fakeSelectedView = new TextView(
-            getContext(), null, R.attr.sizeStyle);
-
-        fakeSelectedView.setLayoutParams(createCloneLayoutParams(textView));
-        fakeSelectedView.setText(textView.getText());
-        fakeSelectedView.setSelected(true);
-        return fakeSelectedView;
     }
 
     private View createFakeSelectedColorView(ImageView imageView) {
