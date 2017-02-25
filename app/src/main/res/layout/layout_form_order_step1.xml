@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+        <variable
+            name="listener"
+            type="com.saulmm.cui.OrderDialogFragment.Step1Listener"
+            />
+    </data>
+
     <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_big"
             android:layout_marginTop="@dimen/spacing_medium"
+            android:onClick="@{listener::onSizeSelected}"
             android:text="@string/label_size"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -27,6 +35,7 @@
             style="@style/Widget.Label"
             android:layout_marginStart="@dimen/spacing_big"
             android:layout_marginTop="@dimen/spacing_huge"
+            android:onClick="@{listener::onSizeSelected}"
             android:text="@string/label_color"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_size_1"
@@ -36,6 +45,7 @@
             android:id="@+id/txt_size_1"
             style="@style/Widget.Size"
             android:layout_marginTop="@dimen/spacing_large"
+            android:onClick="@{listener::onSizeSelected}"
             android:text="6"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/txt_size_2"
@@ -45,6 +55,7 @@
         <TextView
             android:id="@+id/txt_size_2"
             style="@style/Widget.Size"
+            android:onClick="@{listener::onSizeSelected}"
             android:text="7"
             app:layout_constraintBottom_toBottomOf="@+id/txt_size_1"
             app:layout_constraintHorizontal_bias="0.5"
@@ -56,6 +67,7 @@
         <TextView
             android:id="@+id/txt_size_3"
             style="@style/Widget.Size"
+            android:onClick="@{listener::onSizeSelected}"
             android:text="8"
             app:layout_constraintBottom_toBottomOf="@+id/txt_size_2"
             app:layout_constraintLeft_toRightOf="@+id/txt_size_2"
@@ -66,6 +78,7 @@
         <TextView
             android:id="@+id/txt_size_4"
             style="@style/Widget.Size"
+            android:onClick="@{listener::onSizeSelected}"
             android:text="9"
             app:layout_constraintBottom_toBottomOf="@+id/txt_size_3"
             app:layout_constraintLeft_toRightOf="@+id/txt_size_3"
@@ -76,6 +89,7 @@
         <TextView
             android:id="@+id/txt_size_5"
             style="@style/Widget.Size"
+            android:onClick="@{listener::onSizeSelected}"
             android:text="10"
             app:layout_constraintBottom_toBottomOf="@+id/txt_size_4"
             app:layout_constraintLeft_toRightOf="@+id/txt_size_4"
@@ -86,6 +100,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_color_red"
             style="@style/Widget.Color"
+            android:onClick="@{listener::onColorSelected}"
             android:src="@color/product_red"
             app:layout_constraintBottom_toBottomOf="@+id/img_color_yellow"
             app:layout_constraintLeft_toRightOf="@+id/img_color_yellow"
@@ -96,6 +111,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_color_yellow"
             style="@style/Widget.Color"
+            android:onClick="@{listener::onColorSelected}"
             android:src="@color/product_yellow"
             app:layout_constraintBottom_toBottomOf="@+id/img_color_purple"
             app:layout_constraintLeft_toRightOf="@+id/img_color_purple"
@@ -106,6 +122,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_color_purple"
             style="@style/Widget.Color"
+            android:onClick="@{listener::onColorSelected}"
             android:src="@color/product_purple"
             app:layout_constraintBottom_toBottomOf="@+id/img_color_blue"
             app:layout_constraintLeft_toRightOf="@+id/img_color_blue"
@@ -116,6 +133,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_color_blue"
             style="@style/Widget.Color"
+            android:onClick="@{listener::onColorSelected}"
             android:src="@color/product_blue"
             app:layout_constraintBottom_toBottomOf="@+id/img_color_green"
             app:layout_constraintLeft_toRightOf="@+id/img_color_green"
@@ -128,6 +146,7 @@
             style="@style/Widget.Color"
             android:layout_marginBottom="32dp"
             android:layout_marginTop="24dp"
+            android:onClick="@{listener::onColorSelected}"
             android:src="@color/product_green"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

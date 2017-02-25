@@ -14,7 +14,7 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/main_container"
             android:layout_width="match_parent"
-            android:layout_height="420dp"
+            android:layout_height="@dimen/botton_sheet_height"
             >
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -105,7 +105,7 @@
                 >
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/txt_action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

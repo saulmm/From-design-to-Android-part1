@@ -27,4 +27,14 @@
         <item name="android:textColor">@color/blue_grey_400</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
+
+    <style name="Widget.DateTime">
+        <item name="android:minWidth">75dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_square_date</item>
+        <item name="android:textColor">@color/blue_grey_400</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/spacing_medium</item>
+    </style>
 </resources>

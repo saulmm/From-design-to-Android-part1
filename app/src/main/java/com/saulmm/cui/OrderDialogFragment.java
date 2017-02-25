@@ -1,14 +1,15 @@
 package com.saulmm.cui;
 
-import android.app.Dialog;
+import android.databinding.BindingAdapter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.view.ViewCompat;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.transition.Scene;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
@@ -18,11 +19,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.saulmm.cui.databinding.FragmentOrderFormBinding;
 import com.saulmm.cui.databinding.LayoutFormOrderStep1Binding;
+import com.saulmm.cui.databinding.LayoutFormOrderStep2Binding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,9 +37,29 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     public static final String ID_DATE_SUFFIX = "container_date";
     public static final String ID_TIME_SUFFIX = "container_time";
 
+    private List<View> clonedViews = new ArrayList<>();
+
     private FragmentOrderFormBinding binding;
     private Transition selectedViewTransition;
 
+    private OrderSelection orderSelection;
+
+    private static class OrderSelection {
+        public int size;
+        public int color;
+        public String date;
+        public String time;
+    }
+
+    public interface Step1Listener {
+        void onSizeSelected(View v);
+        void onColorSelected(View v);
+    }
+
+    public interface Step2Listener {
+        void onDateSelected(View v);
+        void onTimeSelected(View v);
+    }
 
     public static OrderDialogFragment newInstance() {
         return new OrderDialogFragment();
@@ -56,6 +80,8 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        orderSelection = new OrderSelection();
+
         selectedViewTransition = TransitionInflater.from(getContext())
             .inflateTransition(R.transition.move);
 
@@ -63,9 +89,12 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     }
 
 
-    private void transitionTwoSecondStep(View v) {
-        final Scene deliveryFormScene = Scene.getSceneForLayout(binding.formContainer,
-            R.layout.layout_form_order_step2, getContext());
+    private void transitionToSecondStep(View v) {
+        final LayoutFormOrderStep2Binding step2Binding = LayoutFormOrderStep2Binding.inflate(
+            LayoutInflater.from(getContext()), binding.formContainer, false);//
+
+        final Scene deliveryFormScene = new Scene(binding.formContainer,
+            ((ViewGroup) step2Binding.getRoot()));
 
         ViewCompat.animate(binding.layoutStep1.getRoot()).alpha(0)
             .setInterpolator(new AccelerateInterpolator(1.5f))
@@ -74,7 +103,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
                 .go(deliveryFormScene, null));
 
         deliveryFormScene.setEnterAction(() -> {
-            initOrderStepTwoView(deliveryFormScene.getSceneRoot());
+            initOrderStepTwoView(step2Binding);
 
             deliveryFormScene.getSceneRoot().setTranslationX(
                 binding.formContainer.getWidth());
@@ -92,7 +121,10 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         final View clonedView = createClonedView(v);
 
         // Add the cloned view to the constraint layout
-        binding.mainContainer.addView(clonedView);
+        if (clonedViews.size() < 2) {
+            binding.mainContainer.addView(clonedView);
+            clonedViews.add(clonedView);
+        }
 
         // Fire the transition by changing its constraint's layout params
         startCloneAnimation(clonedView, getTargetView(v));
@@ -122,42 +154,71 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         final String resourceName = getResources().getResourceEntryName(v.getId());
 
         if (resourceName.startsWith(ID_SIZE_SUFFIX) ||
-            resourceName.startsWith(ID_DATE_SUFFIX))
+            resourceName.startsWith(ID_DATE_SUFFIX)) {
+            v.setId(R.id.first_position);
             return binding.txtLabelSize;
 
-        else if (resourceName.startsWith(ID_COLOR_SUFFIX) ||
-            resourceName.startsWith(ID_TIME_SUFFIX))
+        } else if (resourceName.startsWith(ID_COLOR_SUFFIX) ||
+            resourceName.startsWith(ID_TIME_SUFFIX)) {
+            v.setId(R.id.second_position);
             return binding.txtLabelColour;
+        }
 
         throw new IllegalStateException();
     }
 
     private void initOrderStepOneView(LayoutFormOrderStep1Binding layoutStep1) {
-        final View.OnClickListener onStepOneViewClick = this::transitionSelectedView;
-        binding.btnGo.setOnClickListener(this::transitionTwoSecondStep);
+        binding.btnGo.setOnClickListener(v -> {
+            binding.txtAction.setText(R.string.action_book);
 
-        layoutStep1.txtSize1.setOnClickListener(onStepOneViewClick);
-        layoutStep1.txtSize2.setOnClickListener(onStepOneViewClick);
-        layoutStep1.txtSize3.setOnClickListener(onStepOneViewClick);
-        layoutStep1.txtSize4.setOnClickListener(onStepOneViewClick);
-        layoutStep1.txtSize5.setOnClickListener(onStepOneViewClick);
-        layoutStep1.imgColorBlue.setOnClickListener(onStepOneViewClick);
-        layoutStep1.imgColorGreen.setOnClickListener(onStepOneViewClick);
-        layoutStep1.imgColorPurple.setOnClickListener(onStepOneViewClick);
-        layoutStep1.imgColorRed.setOnClickListener(onStepOneViewClick);
-        layoutStep1.imgColorYellow.setOnClickListener(onStepOneViewClick);
+            for (View clonedView : clonedViews)
+                binding.mainContainer.removeView(clonedView);
+
+            clonedViews.clear();
+
+            transitionToSecondStep(v);
+        });
+
+        layoutStep1.setListener(new Step1Listener() {
+            @Override
+            public void onSizeSelected(View v) {
+                orderSelection.size = Integer.parseInt(((TextView) v).getText().toString());
+                transitionSelectedView(v);
+            }
+
+            @Override
+            public void onColorSelected(View v) {
+                orderSelection.color = ((ColorDrawable) ((ImageView) v).getDrawable()).getColor();
+                transitionSelectedView(v);
+            }
+        });
     }
 
-    private void initOrderStepTwoView(ViewGroup sceneRoot) {
-        final View.OnClickListener onStepTwoViewClick = this::transitionSelectedView;
+    @BindingAdapter("app:spanOffset")
+    public static void setItemSpan(View v, int spanOffset) {
+        final String itemText = ((TextView) v).getText().toString();
+        final SpannableString sString = new SpannableString(itemText);
+
+        sString.setSpan(new RelativeSizeSpan(1.5f), itemText.length() - spanOffset, itemText.length(),
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        ((TextView) v).setText(sString);
+    }
+
+    private void initOrderStepTwoView(LayoutFormOrderStep2Binding step2Binding) {
         binding.btnGo.setOnClickListener(v -> changeToConfirmScene());
 
-        sceneRoot.findViewById(R.id.container_date1).setOnClickListener(onStepTwoViewClick);
-        sceneRoot.findViewById(R.id.container_date2).setOnClickListener(onStepTwoViewClick);
-        sceneRoot.findViewById(R.id.container_date3).setOnClickListener(onStepTwoViewClick);
-        sceneRoot.findViewById(R.id.container_time1).setOnClickListener(onStepTwoViewClick);
-        sceneRoot.findViewById(R.id.container_time2).setOnClickListener(onStepTwoViewClick);
-        sceneRoot.findViewById(R.id.container_time3).setOnClickListener(onStepTwoViewClick);
+        step2Binding.setListener(new Step2Listener() {
+            @Override
+            public void onDateSelected(View v) {
+                transitionSelectedView(v);
+            }
+
+            @Override
+            public void onTimeSelected(View v) {
+                transitionSelectedView(v);
+            }
+        });
     }
 
     private View createFakeSelectedTextView(View v) {
