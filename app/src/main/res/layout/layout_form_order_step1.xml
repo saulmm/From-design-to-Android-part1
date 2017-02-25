@@ -144,8 +144,8 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_color_green"
             style="@style/Widget.Color"
-            android:layout_marginBottom="32dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginBottom="@dimen/spacing_huge"
+            android:layout_marginTop="@dimen/spacing_big"
             android:onClick="@{listener::onColorSelected}"
             android:src="@color/product_green"
             app:layout_constraintBottom_toBottomOf="parent"
