@@ -278,7 +278,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
     private void changeToConfirmScene() {
         final Scene scene = Scene.getSceneForLayout(binding.content,
-            R.layout.fragment_order_form2, getContext());
+            R.layout.layout_order_confirmation, getContext());
 
         final Transition transition = TransitionInflater.from(getContext())
             .inflateTransition(R.transition.move);

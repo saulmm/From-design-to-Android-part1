@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/btn_go"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/botton_sheet_height"
+        android:background="@color/product_purple"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
+        tools:layout_height="440dp"
+        >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="The skyrider"
+            android:textAppearance="@style/ConfirmationTextAppearance.Title"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/txt_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/message_order_placed"
+            android:textAppearance="@style/ConfirmationTextAppearance.SubTitle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            />
+
+        <TextView
+            android:id="@+id/txt_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:text="Size: 10"
+            android:textAppearance="@style/ConfirmationTextAppearance.Body"
+            app:layout_constraintLeft_toLeftOf="@+id/txt_color"
+            app:layout_constraintTop_toBottomOf="@+id/txt_color"
+            />
+
+        <TextView
+            android:id="@+id/txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif"
+            android:text="Time: PM 1-2"
+            android:textAppearance="@style/ConfirmationTextAppearance.Body"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="@+id/txt_color"
+            app:layout_constraintTop_toBottomOf="@+id/txt_size"
+            />
+
+
+        <TextView
+            android:id="@+id/txt_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="8dp"
+            android:text="Date: tomorrow 02"
+            android:textAppearance="@style/ConfirmationTextAppearance.Body"
+            app:layout_constraintLeft_toLeftOf="@+id/txt_time"
+            app:layout_constraintTop_toBottomOf="@+id/txt_time"
+            />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="124dp"
+            android:layout_height="124dp"
+            android:layout_marginTop="48dp"
+            android:src="@drawable/img_ice_skate"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/txt_color"
+            app:layout_constraintTop_toBottomOf="@+id/txt_subtitle"
+            />
+
+        <TextView
+            android:id="@+id/txt_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="0dp"
+            android:textAppearance="@style/ConfirmationTextAppearance.Body"
+            android:text="Color: blue"
+            app:layout_constraintLeft_toRightOf="@+id/imageView"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            />
+
+        <TextView
+            android:id="@+id/txt_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="23dp"
+            android:text="Thank you! you'll receive\n your order soon!"
+            android:textAppearance="@style/ConfirmationTextAppearance.Body"
+            android:lineSpacingExtra="4dp"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/imageView"
+            />
+
+        <TextView
+            android:id="@+id/txt_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:text="$ 23"
+            android:textStyle="bold"
+            android:textAppearance="@style/ConfirmationTextAppearance.Body"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txt_message"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_message"
+            android:layout_marginBottom="0dp"
+            />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="0dp"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView2"
+            app:srcCompat="@drawable/vd_down_arrow"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
