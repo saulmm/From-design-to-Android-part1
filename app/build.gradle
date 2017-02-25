@@ -28,14 +28,14 @@ android {
     }
 }
 
-def SUPPORT = '25.1.0'
+def SUPPORT = '25.2.0'
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.android.support:appcompat-v7:$SUPPORT"
     compile "com.android.support:design:$SUPPORT"
     compile "com.android.support:recyclerview-v7:$SUPPORT"
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta5'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 }
