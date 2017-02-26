@@ -3,6 +3,7 @@ package com.saulmm.cui;
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -18,12 +19,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.saulmm.cui.databinding.FragmentOrderFormBinding;
 import com.saulmm.cui.databinding.LayoutFormOrderStep1Binding;
 import com.saulmm.cui.databinding.LayoutFormOrderStep2Binding;
+import com.saulmm.cui.databinding.LayoutOrderConfirmationBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -277,12 +280,29 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     }
 
     private void changeToConfirmScene() {
-        final Scene scene = Scene.getSceneForLayout(binding.content,
-            R.layout.layout_order_confirmation, getContext());
+        final LayoutOrderConfirmationBinding confirmationBinding = LayoutOrderConfirmationBinding
+            .inflate(LayoutInflater.from(getContext()), binding.mainContainer, false);
+
+        // TODO why content here?
+        final Scene scene = new Scene(binding.content,
+            ((ViewGroup) confirmationBinding.getRoot()));
+
+        scene.setEnterAction(onEnterConfirmScene(confirmationBinding));
 
         final Transition transition = TransitionInflater.from(getContext())
             .inflateTransition(R.transition.move);
 
         TransitionManager.go(scene, transition);
+    }
+
+    @NonNull
+    private Runnable onEnterConfirmScene(LayoutOrderConfirmationBinding confirmationBinding) {
+        return () -> {
+            ViewCompat.animate(confirmationBinding.txtSubtitle)
+                .scaleX(1).scaleY(1)
+                .setInterpolator(new OvershootInterpolator())
+                .setStartDelay(200)
+                .start();
+        };
     }
 }

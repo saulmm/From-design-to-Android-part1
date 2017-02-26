@@ -30,16 +30,22 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
 
     private void setProductImage(Product.ID productId) {
         Drawable productDrawable = null;
+        int image = 0;
 
         switch (productId) {
             case ALL_STAR:
                 productDrawable = ContextCompat.getDrawable(
                     context, R.drawable.product_allstar);
+
+                image = R.drawable.img_sneaker;
+
                 break;
 
             case SANDAL:
                 productDrawable = ContextCompat.getDrawable(
                     context, R.drawable.product_sandal);
+
+                image = R.drawable.img_sandal;
                 break;
 
             case WOMEN_SHOES:
@@ -50,10 +56,13 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
             case SPORT_SHOES:
                 productDrawable = ContextCompat.getDrawable(
                     context, R.drawable.product_sport_shoes);
+
+                image = R.drawable.img_sneaker;
                 break;
         }
 
-        binding.image.setImageDrawable(productDrawable);
+        binding.image.setImageResource(image);
+        binding.image.setBackground(productDrawable);
 
     }
 }
