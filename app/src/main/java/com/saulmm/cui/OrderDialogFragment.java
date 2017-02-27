@@ -2,7 +2,6 @@ package com.saulmm.cui;
 
 import android.databinding.BindingAdapter;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -103,12 +102,13 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
         orderSelection = new OrderSelection();
 
+        selectedViewTransition = TransitionInflater.from(getContext())
+            .inflateTransition(R.transition.transition_fake_view);
+
         final Product product = (Product) getArguments().getSerializable(ARG_PRODUCT);
         binding.setProduct(product);
         binding.imgProduct.setImageDrawable(createProductImageDrawable(product));
 
-        selectedViewTransition = TransitionInflater.from(getContext())
-            .inflateTransition(R.transition.move);
 
         initOrderStepOneView(binding.layoutStep1);
     }
@@ -317,7 +317,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         scene.setEnterAction(onEnterConfirmScene(confirmationBinding));
 
         final Transition transition = TransitionInflater.from(getContext())
-            .inflateTransition(R.transition.move);
+            .inflateTransition(R.transition.transition_confirmation_view);
 
         TransitionManager.go(scene, transition);
     }
