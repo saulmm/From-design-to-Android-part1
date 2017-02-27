@@ -13,27 +13,32 @@ import com.saulmm.cui.recycler.OnItemSelectedListener;
 import com.saulmm.cui.recycler.ProductAdapter;
 import com.saulmm.cui.recycler.ProductItemPaddingDecoration;
 
+import java.util.List;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class HomeActivity extends AppCompatActivity {
     private ActivityHomeBinding binding;
+    private List<Product> fakeProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+        fakeProducts = Product.createFakeProducts();
 
         initRecycler(binding.productsRecycler);
     }
 
     private void initRecycler(RecyclerView productsRecycler) {
         productsRecycler.setHasFixedSize(true);
-        productsRecycler.setAdapter(new ProductAdapter(Product.createFakeProducts()));
+
+        productsRecycler.setAdapter(new ProductAdapter(fakeProducts));
         productsRecycler.addItemDecoration(new ProductItemPaddingDecoration(this));
         productsRecycler.addOnItemTouchListener(new OnItemSelectedListener(this) {
             @Override
             public void onItemSelected(RecyclerView.ViewHolder holder, int position) {
-                OrderDialogFragment.newInstance().show(getSupportFragmentManager(), null);
+                OrderDialogFragment.newInstance(fakeProducts.get(position)).show(getSupportFragmentManager(), null);
             }
         });
     }

@@ -1,12 +1,20 @@
 package com.saulmm.cui;
 
 import android.databinding.BindingAdapter;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -27,6 +35,7 @@ import com.saulmm.cui.databinding.FragmentOrderFormBinding;
 import com.saulmm.cui.databinding.LayoutFormOrderStep1Binding;
 import com.saulmm.cui.databinding.LayoutFormOrderStep2Binding;
 import com.saulmm.cui.databinding.LayoutOrderConfirmationBinding;
+import com.saulmm.cui.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +48,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     public static final String ID_COLOR_SUFFIX = "img_color";
     public static final String ID_DATE_SUFFIX = "container_date";
     public static final String ID_TIME_SUFFIX = "container_time";
+    private static final String ARG_PRODUCT = "arg_product";
 
     private List<View> clonedViews = new ArrayList<>();
 
@@ -47,7 +57,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
     private OrderSelection orderSelection;
 
-    private static class OrderSelection {
+    public static class OrderSelection {
         public int size;
         public int color;
         public String date;
@@ -56,16 +66,24 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
     public interface Step1Listener {
         void onSizeSelected(View v);
+
         void onColorSelected(View v);
     }
 
     public interface Step2Listener {
         void onDateSelected(View v);
+
         void onTimeSelected(View v);
     }
 
-    public static OrderDialogFragment newInstance() {
-        return new OrderDialogFragment();
+    public static OrderDialogFragment newInstance(Product product) {
+        final Bundle args = new Bundle();
+        args.putSerializable(ARG_PRODUCT, product);
+
+        final OrderDialogFragment orderFragment = new OrderDialogFragment();
+        orderFragment.setArguments(args);
+
+        return orderFragment;
     }
 
     @Nullable
@@ -84,6 +102,10 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         orderSelection = new OrderSelection();
+
+        final Product product = (Product) getArguments().getSerializable(ARG_PRODUCT);
+        binding.setProduct(product);
+        binding.imgProduct.setImageDrawable(createProductImageDrawable(product));
 
         selectedViewTransition = TransitionInflater.from(getContext())
             .inflateTransition(R.transition.move);
@@ -209,6 +231,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     }
 
     private void initOrderStepTwoView(LayoutFormOrderStep2Binding step2Binding) {
+        binding.btnGo.setBackground(new ColorDrawable(orderSelection.color));
         binding.btnGo.setOnClickListener(v -> changeToConfirmScene());
 
         step2Binding.setListener(new Step2Listener() {
@@ -283,16 +306,37 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         final LayoutOrderConfirmationBinding confirmationBinding = LayoutOrderConfirmationBinding
             .inflate(LayoutInflater.from(getContext()), binding.mainContainer, false);
 
+        confirmationBinding.getRoot().setBackground(
+            new ColorDrawable(orderSelection.color));
+
         // TODO why content here?
         final Scene scene = new Scene(binding.content,
             ((ViewGroup) confirmationBinding.getRoot()));
 
+        confirmationBinding.setProduct((Product) getArguments().getSerializable(ARG_PRODUCT));
         scene.setEnterAction(onEnterConfirmScene(confirmationBinding));
 
         final Transition transition = TransitionInflater.from(getContext())
             .inflateTransition(R.transition.move);
 
         TransitionManager.go(scene, transition);
+    }
+
+    private Drawable createProductImageDrawable(Product product) {
+        final ShapeDrawable background = new ShapeDrawable();
+        background.setShape(new OvalShape());
+        background.getPaint().setColor(ContextCompat.getColor(getContext(), product.color));
+
+        final BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(),
+            BitmapFactory.decodeResource(getResources(), product.image));
+
+        final LayerDrawable layerDrawable = new LayerDrawable
+            (new Drawable[]{background, bitmapDrawable});
+
+        final int padding = (int) getResources().getDimension(R.dimen.spacing_huge);
+        layerDrawable.setLayerInset(1, padding, padding, padding, padding);
+
+        return layerDrawable;
     }
 
     @NonNull

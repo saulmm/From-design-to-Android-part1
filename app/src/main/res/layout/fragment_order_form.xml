@@ -5,6 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
+    <data>
+        <variable name="product" type="com.saulmm.cui.model.Product"/>
+    </data>
+
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
@@ -23,7 +27,7 @@
                 android:layout_height="56dp"
                 android:layout_marginLeft="@dimen/spacing_huge"
                 android:layout_marginStart="@dimen/spacing_huge"
-                android:layout_marginTop="31dp"
+                android:layout_marginTop="@dimen/spacing_huge"
                 android:src="@color/product_blue"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +43,7 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginRight="8dp"
-                android:text="The skydriver"
+                android:text="@{product.name}"
                 android:textColor="@color/blue_grey_700"
                 android:fontFamily="sans-serif-medium"
                 android:textSize="18sp"
@@ -49,6 +53,7 @@
                 app:layout_constraintTop_toTopOf="@+id/img_product"
                 app:layout_constraintBottom_toBottomOf="@+id/img_product"
                 app:layout_constraintVertical_bias="0.52"
+                tools:text="The skydriver"
                 />
 
             <TextView
@@ -60,7 +65,7 @@
                 android:drawablePadding="@dimen/spacing_large"
                 android:drawableRight="@drawable/vd_down_arrow"
                 android:gravity="center_vertical"
-                android:text="45 $"
+                android:text="@{product.price}"
                 android:fontFamily="sans-serif-medium"
                 android:textSize="@dimen/font_size_medium"
                 android:textColor="@color/blue_grey_400"
@@ -69,6 +74,7 @@
                 app:layout_constraintLeft_toRightOf="@+id/txt_name"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="UnusedAttribute"
+                tools:text="45 $"
                 />
 
             <FrameLayout

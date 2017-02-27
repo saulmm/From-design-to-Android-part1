@@ -25,7 +25,7 @@ public class Product implements Serializable{
         return Arrays.asList(
             new Product("Shooting Stars", "$ 45", R.drawable.img_sneaker, R.color.product_yellow),
             new Product("Pictures in Sky", "$ 575", R.drawable.img_sandal, R.color.product_green),
-            new Product("The basics of buying a telescope", "$ 892", R.drawable.img_sandal, R.color.product_blue),
+            new Product("The basics of buying a telescope", "$ 892", R.drawable.img_shoe, R.color.product_blue),
             new Product("The skyrider", "$ 23", R.drawable.img_ice_skate, R.color.product_purple)
         );
     }
