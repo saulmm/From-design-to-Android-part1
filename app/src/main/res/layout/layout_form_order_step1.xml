@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
     <data>
         <variable
             name="listener"
@@ -9,9 +12,7 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="HardcodedText"
@@ -50,6 +51,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/txt_size_2"
             app:layout_constraintTop_toBottomOf="@+id/txt_label_size"
+            app:layout_constraintHorizontal_chainStyle="spread"
             />
 
         <TextView
