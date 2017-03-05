@@ -42,6 +42,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
+
 public class OrderDialogFragment extends BottomSheetDialogFragment {
     public static final String ID_SIZE_SUFFIX = "txt_size";
     public static final String ID_COLOR_SUFFIX = "img_color";
@@ -110,13 +111,11 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         binding.imgProduct.setImageDrawable(createProductImageDrawable(getProduct()));
 
         initOrderStepOneView(binding.layoutStep1);
-
-
     }
 
-    private void transitionToSecondStep() {
+    private void showDeliveryForm() {
         final LayoutFormOrderStep2Binding step2Binding = LayoutFormOrderStep2Binding.inflate(
-            LayoutInflater.from(getContext()), binding.formContainer, false);//
+            LayoutInflater.from(getContext()), binding.formContainer, false);
 
         final Scene deliveryFormScene = new Scene(binding.formContainer,
             ((ViewGroup) step2Binding.getRoot()));
@@ -143,7 +142,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         v.setSelected(true);
 
         // Create the cloned view from the selected view at the same position
-        final View clonedView = createClonedView(v);
+        final View clonedView = createSelectionView(v);
 
         // Add the cloned view to the constraint layout
         if (clonedViews.size() < 2) {
@@ -161,18 +160,17 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
                 TransitionManager.beginDelayedTransition(
                     (ViewGroup) binding.getRoot(), selectedViewTransition);
 
-                ConstraintLayout.LayoutParams fakeEndParams = createFakeEndParams(clonedView, targetView);
-                clonedView.setLayoutParams(fakeEndParams); // Fire the transition
+                clonedView.setLayoutParams(SelectedParamsFactory.endParams(clonedView, targetView)); // Fire the transition
             }
         });
     }
 
-    private View createClonedView(View v) {
+    private View createSelectionView(View v) {
         final String resourceName = getResources().getResourceEntryName(v.getId());
 
         return (resourceName.startsWith(ID_COLOR_SUFFIX))
-            ? createFakeSelectedColorView((ImageView) v)
-            : createFakeSelectedTextView(v);
+            ? createSelectedColorView((ImageView) v)
+            : createSelectedTextView(v);
     }
 
     private View getTargetView(View v) {
@@ -201,7 +199,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
             clonedViews.clear();
 
-            transitionToSecondStep();
+            showDeliveryForm();
         });
 
         layoutStep1.setListener(new Step1Listener() {
@@ -247,59 +245,22 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         });
     }
 
-    private View createFakeSelectedTextView(View v) {
+    private View createSelectedTextView(View v) {
         final TextView fakeSelectedTextView = new TextView(
             getContext(), null, R.attr.selectedTextStyle);
 
         fakeSelectedTextView.setText("This is a test"); // TODO, set the proper text
-        fakeSelectedTextView.setLayoutParams(createNewViewLayoutParams(v));
+        fakeSelectedTextView.setLayoutParams(SelectedParamsFactory.startTextParams(v));
         return fakeSelectedTextView;
     }
 
-    private View createFakeSelectedColorView(ImageView imageView) {
+    private View createSelectedColorView(ImageView selectedView) {
         final ImageView fakeImageView = new CircleImageView(
             getContext(), null, R.attr.colorStyle);
 
-        fakeImageView.setImageDrawable(imageView.getDrawable());
-        fakeImageView.setLayoutParams(createCloneLayoutParams(imageView));
+        fakeImageView.setImageDrawable(selectedView.getDrawable());
+        fakeImageView.setLayoutParams(SelectedParamsFactory.startColorParams(selectedView));
         return fakeImageView;
-    }
-
-    private ConstraintLayout.LayoutParams createFakeEndParams(View v, View targetView) {
-        final ConstraintLayout.LayoutParams layoutParams =
-            (ConstraintLayout.LayoutParams) v.getLayoutParams();
-
-        final int marginLeft = getContext().getResources()
-            .getDimensionPixelOffset(R.dimen.spacing_medium);
-
-        layoutParams.setMargins(marginLeft, 0, 0, 0);
-        layoutParams.topToTop = targetView.getId();
-        layoutParams.startToEnd = targetView.getId();
-        layoutParams.bottomToBottom = targetView.getId();
-
-        return layoutParams;
-    }
-
-    private ConstraintLayout.LayoutParams createCloneLayoutParams(View v) {
-        final ConstraintLayout.LayoutParams layoutParams =
-            new ConstraintLayout.LayoutParams(v.getWidth(), v.getHeight());
-
-        layoutParams.topToTop = binding.formContainer.getId();
-        layoutParams.leftToLeft = binding.formContainer.getId();
-        layoutParams.setMargins((int) v.getX(), (int) v.getY(), 0, 0);
-        return layoutParams;
-    }
-
-    private ConstraintLayout.LayoutParams createNewViewLayoutParams(View v) {
-        final ConstraintLayout.LayoutParams layoutParams =
-            new ConstraintLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        layoutParams.topToTop = binding.formContainer.getId();
-        layoutParams.leftToLeft = binding.formContainer.getId();
-        layoutParams.setMargins((int) v.getX(), (int) v.getY(), 0, 0);
-        return layoutParams;
     }
 
     private void changeToConfirmScene() {
@@ -352,5 +313,49 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
                 .setStartDelay(200)
                 .start();
         };
+    }
+
+    private static class SelectedParamsFactory {
+        private static ConstraintLayout.LayoutParams startColorParams(View selectedView) {
+            final int colorSize = selectedView.getContext().getResources()
+                .getDimensionPixelOffset(R.dimen.product_color_size);
+
+            final ConstraintLayout.LayoutParams layoutParams =
+                new ConstraintLayout.LayoutParams(colorSize, colorSize);
+
+            setStartState(selectedView, layoutParams);
+            return layoutParams;
+        }
+
+        private static ConstraintLayout.LayoutParams startTextParams(View selectedView) {
+            final ConstraintLayout.LayoutParams layoutParams =
+                new ConstraintLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            setStartState(selectedView, layoutParams);
+            return layoutParams;
+        }
+
+        private static void setStartState(View selectedView, ConstraintLayout.LayoutParams layoutParams) {
+            layoutParams.topToTop = ((ViewGroup) selectedView.getParent().getParent()).getId();
+            layoutParams.leftToLeft = ((ViewGroup) selectedView.getParent().getParent()).getId();
+            layoutParams.setMargins((int) selectedView.getX(), (int) selectedView.getY(), 0, 0);
+        }
+
+        private static ConstraintLayout.LayoutParams endParams(View v, View targetView) {
+            final ConstraintLayout.LayoutParams layoutParams =
+                (ConstraintLayout.LayoutParams) v.getLayoutParams();
+
+            final int marginLeft = v.getContext().getResources()
+                .getDimensionPixelOffset(R.dimen.spacing_medium);
+
+            layoutParams.setMargins(marginLeft, 0, 0, 0);
+            layoutParams.topToTop = targetView.getId();
+            layoutParams.startToEnd = targetView.getId();
+            layoutParams.bottomToBottom = targetView.getId();
+
+            return layoutParams;
+        }
     }
 }
