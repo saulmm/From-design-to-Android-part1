@@ -1,9 +1,27 @@
+#Android generated
+bin
+gen
+lint.xml
+lint
+
+#IntelliJ IDEA
+.idea
 *.iml
+*.ipr
+*.iws
+classes
+gen-external-apklibs
+
+#gradle
 .gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
+build/
+local.properties
+
+#Other
 .DS_Store
-/build
-/captures
-.externalNativeBuild
+Thumbs.db
+tmp
+*.tgz
+*.lock
+*.lck
+com_crashlytics_export_strings.xml
