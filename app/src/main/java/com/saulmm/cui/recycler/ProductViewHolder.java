@@ -1,6 +1,7 @@
 package com.saulmm.cui.recycler;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
@@ -13,12 +14,10 @@ import com.saulmm.cui.model.Product;
 
 class ProductViewHolder extends RecyclerView.ViewHolder {
     private final ItemProductBinding binding;
-    private final Context context;
 
     ProductViewHolder(ItemProductBinding binding) {
         super(binding.getRoot());
         this.binding = binding;
-        this.context = itemView.getContext();
     }
 
     void bind(Product product) {
@@ -28,8 +27,18 @@ class ProductViewHolder extends RecyclerView.ViewHolder {
             binding.image.getBackground();
 
         gradientDrawable.setColor(ContextCompat.getColor(
-            context, product.color));
+            itemView.getContext(), product.color));
+
+        gradientDrawable.setSize(itemView.getWidth(), getDrawableHeight());
 
         binding.image.setImageResource(product.image);
+    }
+
+    private int getDrawableHeight() {
+        final Context context = itemView.getContext();
+
+        return getAdapterPosition() % 2 == 0
+            ? context.getResources().getDimensionPixelOffset(R.dimen.product_regular_height)
+            : context.getResources().getDimensionPixelOffset(R.dimen.product_large_height);
     }
 }
