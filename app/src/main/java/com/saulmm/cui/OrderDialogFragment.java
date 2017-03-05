@@ -101,20 +101,20 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         orderSelection = new OrderSelection();
+        orderSelection.color = ContextCompat.getColor(getContext(), getProduct().color);
 
         selectedViewTransition = TransitionInflater.from(getContext())
             .inflateTransition(R.transition.transition_fake_view);
 
-        final Product product = (Product) getArguments().getSerializable(ARG_PRODUCT);
-        binding.setProduct(product);
-        binding.imgProduct.setImageDrawable(createProductImageDrawable(product));
-
+        binding.setProduct(getProduct());
+        binding.imgProduct.setImageDrawable(createProductImageDrawable(getProduct()));
 
         initOrderStepOneView(binding.layoutStep1);
+
+
     }
 
-
-    private void transitionToSecondStep(View v) {
+    private void transitionToSecondStep() {
         final LayoutFormOrderStep2Binding step2Binding = LayoutFormOrderStep2Binding.inflate(
             LayoutInflater.from(getContext()), binding.formContainer, false);//
 
@@ -201,7 +201,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
             clonedViews.clear();
 
-            transitionToSecondStep(v);
+            transitionToSecondStep();
         });
 
         layoutStep1.setListener(new Step1Listener() {
@@ -313,13 +313,17 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         final Scene scene = new Scene(binding.content,
             ((ViewGroup) confirmationBinding.getRoot()));
 
-        confirmationBinding.setProduct((Product) getArguments().getSerializable(ARG_PRODUCT));
+        confirmationBinding.setProduct(getProduct());
         scene.setEnterAction(onEnterConfirmScene(confirmationBinding));
 
         final Transition transition = TransitionInflater.from(getContext())
             .inflateTransition(R.transition.transition_confirmation_view);
 
         TransitionManager.go(scene, transition);
+    }
+
+    private Product getProduct() {
+        return (Product) getArguments().getSerializable(ARG_PRODUCT);
     }
 
     private Drawable createProductImageDrawable(Product product) {
