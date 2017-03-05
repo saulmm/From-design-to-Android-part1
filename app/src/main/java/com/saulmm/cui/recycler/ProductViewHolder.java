@@ -23,14 +23,17 @@ class ProductViewHolder extends RecyclerView.ViewHolder {
     void bind(Product product) {
         binding.setProduct(product);
 
-        final GradientDrawable gradientDrawable = (GradientDrawable)
-            binding.image.getBackground();
+        final GradientDrawable gradientDrawable = (GradientDrawable) ContextCompat.getDrawable(
+            itemView.getContext(), R.drawable.bg_product);
 
         gradientDrawable.setColor(ContextCompat.getColor(
             itemView.getContext(), product.color));
 
         gradientDrawable.setSize(itemView.getWidth(), getDrawableHeight());
 
+        gradientDrawable.mutate();
+
+        binding.image.setBackground(gradientDrawable);
         binding.image.setImageResource(product.image);
     }
 
