@@ -42,7 +42,6 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-
 public class OrderDialogFragment extends BottomSheetDialogFragment {
     public static final String ID_SIZE_SUFFIX = "txt_size";
     public static final String ID_COLOR_SUFFIX = "img_color";
@@ -58,10 +57,10 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     private OrderSelection orderSelection;
 
     public static class OrderSelection {
-        public int size;
-        public int color;
-        public String date;
-        public String time;
+        public int size = 0;
+        public int color = 0;
+        public String date = "";
+        public String time = "";
     }
 
     public interface Step1Listener {
@@ -102,7 +101,6 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         orderSelection = new OrderSelection();
-        orderSelection.color = ContextCompat.getColor(getContext(), getProduct().color);
 
         selectedViewTransition = TransitionInflater.from(getContext())
             .inflateTransition(R.transition.transition_fake_view);
@@ -139,8 +137,6 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     }
 
     private void transitionSelectedView(View v) {
-        v.setSelected(true);
-
         // Create the cloned view from the selected view at the same position
         final View clonedView = createSelectionView(v);
 
@@ -190,9 +186,25 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         throw new IllegalStateException();
     }
 
+    @BindingAdapter("app:spanOffset")
+    public static void setItemSpan(View v, int spanOffset) {
+        final String itemText = ((TextView) v).getText().toString();
+        final SpannableString sString = new SpannableString(itemText);
+
+        sString.setSpan(new RelativeSizeSpan(1.5f), itemText.length() - spanOffset, itemText.length(),
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        ((TextView) v).setText(sString);
+    }
+
     private void initOrderStepOneView(LayoutFormOrderStep1Binding layoutStep1) {
         binding.btnGo.setOnClickListener(v -> {
             binding.txtAction.setText(R.string.action_book);
+
+            if (orderSelection.color == 0) {
+                orderSelection.color = ContextCompat.getColor(
+                    getContext(), getProduct().color);
+            }
 
             for (View clonedView : clonedViews)
                 binding.mainContainer.removeView(clonedView);
@@ -205,27 +217,22 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         layoutStep1.setListener(new Step1Listener() {
             @Override
             public void onSizeSelected(View v) {
-                orderSelection.size = Integer.parseInt(((TextView) v).getText().toString());
-                transitionSelectedView(v);
+                if (orderSelection.size == 0) {
+                    orderSelection.size = Integer.parseInt(((TextView) v).getText().toString());
+                    v.setSelected(true);
+                    transitionSelectedView(v);
+                }
             }
 
             @Override
             public void onColorSelected(View v) {
-                orderSelection.color = ((ColorDrawable) ((ImageView) v).getDrawable()).getColor();
-                transitionSelectedView(v);
+                if (orderSelection.color == 0) {
+                    orderSelection.color = ((ColorDrawable) ((ImageView) v).getDrawable()).getColor();
+                    v.setSelected(true);
+                    transitionSelectedView(v);
+                }
             }
         });
-    }
-
-    @BindingAdapter("app:spanOffset")
-    public static void setItemSpan(View v, int spanOffset) {
-        final String itemText = ((TextView) v).getText().toString();
-        final SpannableString sString = new SpannableString(itemText);
-
-        sString.setSpan(new RelativeSizeSpan(1.5f), itemText.length() - spanOffset, itemText.length(),
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        ((TextView) v).setText(sString);
     }
 
     private void initOrderStepTwoView(LayoutFormOrderStep2Binding step2Binding) {
@@ -235,12 +242,20 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         step2Binding.setListener(new Step2Listener() {
             @Override
             public void onDateSelected(View v) {
-                transitionSelectedView(v);
+                if (orderSelection.date.isEmpty()) {
+                    orderSelection.date = ((TextView) v).getText().toString();
+                    v.setSelected(true);
+                    transitionSelectedView(v);
+                }
             }
 
             @Override
             public void onTimeSelected(View v) {
-                transitionSelectedView(v);
+                if (orderSelection.time.isEmpty()) {
+                    orderSelection.time = ((TextView) v).getText().toString();
+                    v.setSelected(true);
+                    transitionSelectedView(v);
+                }
             }
         });
     }
