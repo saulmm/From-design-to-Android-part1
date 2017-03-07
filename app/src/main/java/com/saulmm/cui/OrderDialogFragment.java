@@ -45,8 +45,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class OrderDialogFragment extends BottomSheetDialogFragment {
     public static final String ID_SIZE_SUFFIX = "txt_size";
     public static final String ID_COLOR_SUFFIX = "img_color";
-    public static final String ID_DATE_SUFFIX = "container_date";
-    public static final String ID_TIME_SUFFIX = "container_time";
+    public static final String ID_DATE_SUFFIX = "txt_date";
+    public static final String ID_TIME_SUFFIX = "txt_time";
     private static final String ARG_PRODUCT = "arg_product";
 
     private List<View> clonedViews = new ArrayList<>();
@@ -225,7 +225,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
             @Override
             public void onDateSelected(View v) {
                 if (orderSelection.date.isEmpty()) {
-                    orderSelection.date = ((TextView) v).getText().toString();
+                    orderSelection.date = getCleanedText(v);
                     v.setSelected(true);
                     transitionSelectedView(v);
                 }
@@ -234,7 +234,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
             @Override
             public void onTimeSelected(View v) {
                 if (orderSelection.time.isEmpty()) {
-                    orderSelection.time = ((TextView) v).getText().toString();
+                    orderSelection.time = getCleanedText(v);
                     v.setSelected(true);
                     transitionSelectedView(v);
                 }
@@ -242,11 +242,25 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         });
     }
 
+    private String getCleanedText(View v) {
+        return ((TextView) v).getText().toString().replace("\n", " ");
+    }
+
     private View createSelectedTextView(View v) {
         final TextView fakeSelectedTextView = new TextView(
             getContext(), null, R.attr.selectedTextStyle);
 
-        fakeSelectedTextView.setText("This is a test"); // TODO, set the proper text
+        final String resourceName = getResources().getResourceEntryName(v.getId());
+
+        if (resourceName.startsWith(ID_DATE_SUFFIX))
+            fakeSelectedTextView.setText(orderSelection.date);
+
+        else if (resourceName.startsWith(ID_TIME_SUFFIX))
+            fakeSelectedTextView.setText(orderSelection.time);
+
+        else if (resourceName.startsWith(ID_SIZE_SUFFIX))
+            fakeSelectedTextView.setText(String.valueOf(orderSelection.size));
+
         fakeSelectedTextView.setLayoutParams(SelectedParamsFactory.startTextParams(v));
         return fakeSelectedTextView;
     }

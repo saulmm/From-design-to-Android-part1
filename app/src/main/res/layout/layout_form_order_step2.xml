@@ -38,37 +38,24 @@
             android:layout_marginTop="@dimen/spacing_large"
             android:text="@string/label_time"
             app:layout_constraintLeft_toLeftOf="@+id/txt_label_size"
-            app:layout_constraintTop_toBottomOf="@+id/container_date2"
+            app:layout_constraintTop_toBottomOf="@+id/txt_date2"
             />
 
         <TextView
-            android:id="@+id/container_date1"
+            android:id="@+id/txt_date1"
             style="@style/Widget.DateTime"
             android:layout_marginEnd="@dimen/spacing_medium"
             android:layout_marginRight="@dimen/spacing_medium"
             android:onClick="@{listener::onDateSelected}"
             android:text="@string/prefered_date_today"
-            app:layout_constraintBottom_toBottomOf="@+id/container_date2"
-            app:layout_constraintRight_toLeftOf="@+id/container_date2"
-            app:layout_constraintTop_toTopOf="@+id/container_date2"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_date2"
+            app:layout_constraintRight_toLeftOf="@+id/txt_date2"
+            app:layout_constraintTop_toTopOf="@+id/txt_date2"
             app:spanOffset="@{2}"
             />
 
         <TextView
-            android:id="@+id/container_date3"
-            style="@style/Widget.DateTime"
-            android:layout_marginLeft="@dimen/spacing_medium"
-            android:layout_marginStart="@dimen/spacing_medium"
-            android:onClick="@{listener::onDateSelected}"
-            android:text="@string/prefered_date_tuesday"
-            app:layout_constraintBottom_toBottomOf="@+id/container_date2"
-            app:layout_constraintLeft_toRightOf="@+id/container_date2"
-            app:layout_constraintTop_toTopOf="@+id/container_date2"
-            app:spanOffset="@{2}"
-            />
-
-        <TextView
-            android:id="@+id/container_date2"
+            android:id="@+id/txt_date2"
             style="@style/Widget.DateTime"
             android:layout_marginTop="@dimen/spacing_medium"
             android:onClick="@{listener::onDateSelected}"
@@ -80,7 +67,21 @@
             />
 
         <TextView
-            android:id="@+id/container_time1"
+            android:id="@+id/txt_date3"
+            style="@style/Widget.DateTime"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:onClick="@{listener::onDateSelected}"
+            android:text="@string/prefered_date_tuesday"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_date2"
+            app:layout_constraintLeft_toRightOf="@+id/txt_date2"
+            app:layout_constraintTop_toTopOf="@+id/txt_date2"
+            app:spanOffset="@{2}"
+            />
+
+
+        <TextView
+            android:id="@+id/txt_time1"
             style="@style/Widget.DateTime"
             android:layout_marginBottom="@dimen/spacing_large"
             android:layout_marginTop="@dimen/spacing_medium"
@@ -94,28 +95,28 @@
             />
 
         <TextView
-            android:id="@+id/container_time2"
+            android:id="@+id/txt_time2"
             style="@style/Widget.DateTime"
             android:layout_marginLeft="@dimen/spacing_medium"
             android:layout_marginStart="@dimen/spacing_medium"
             android:onClick="@{listener::onTimeSelected}"
             android:text="@string/prefered_time_34"
-            app:layout_constraintBottom_toBottomOf="@+id/container_time1"
-            app:layout_constraintLeft_toRightOf="@+id/container_time1"
-            app:layout_constraintTop_toTopOf="@+id/container_time1"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_time1"
+            app:layout_constraintLeft_toRightOf="@+id/txt_time1"
+            app:layout_constraintTop_toTopOf="@+id/txt_time1"
             app:spanOffset="@{3}"
             />
 
         <TextView
-            android:id="@+id/container_time3"
+            android:id="@+id/txt_time3"
             style="@style/Widget.DateTime"
             android:layout_marginEnd="@dimen/spacing_medium"
             android:layout_marginRight="@dimen/spacing_medium"
             android:onClick="@{listener::onTimeSelected}"
             android:text="@string/prefered_time_12"
-            app:layout_constraintBottom_toBottomOf="@+id/container_time1"
-            app:layout_constraintRight_toLeftOf="@+id/container_time1"
-            app:layout_constraintTop_toTopOf="@+id/container_time1"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_time1"
+            app:layout_constraintRight_toLeftOf="@+id/txt_time1"
+            app:layout_constraintTop_toTopOf="@+id/txt_time1"
             app:spanOffset="@{3}"
             />
     </android.support.constraint.ConstraintLayout>

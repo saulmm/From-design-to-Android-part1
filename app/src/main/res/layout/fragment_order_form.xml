@@ -6,7 +6,11 @@
     >
 
     <data>
-        <variable name="product" type="com.saulmm.cui.model.Product"/>
+
+        <variable
+            name="product"
+            type="com.saulmm.cui.model.Product"
+            />
     </data>
 
     <FrameLayout
@@ -23,8 +27,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_product"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_width="@dimen/img_form_size"
+                android:layout_height="@dimen/img_form_size"
                 android:layout_marginLeft="@dimen/spacing_huge"
                 android:layout_marginStart="@dimen/spacing_huge"
                 android:layout_marginTop="@dimen/spacing_huge"
@@ -41,17 +45,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginLeft="24dp"
-                android:layout_marginStart="24dp"
                 android:layout_marginRight="8dp"
+                android:layout_marginStart="24dp"
+                android:fontFamily="sans-serif-medium"
                 android:text="@{product.name}"
                 android:textColor="@color/blue_grey_700"
-                android:fontFamily="sans-serif-medium"
                 android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_product"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintLeft_toRightOf="@+id/img_product"
                 app:layout_constraintRight_toLeftOf="@+id/txt_price"
                 app:layout_constraintTop_toTopOf="@+id/img_product"
-                app:layout_constraintBottom_toBottomOf="@+id/img_product"
                 app:layout_constraintVertical_bias="0.52"
                 tools:text="The skydriver"
                 />
@@ -64,12 +68,12 @@
                 android:layout_marginRight="16dp"
                 android:drawablePadding="@dimen/spacing_large"
                 android:drawableRight="@drawable/vd_down_arrow"
+                android:drawableTint="@color/blue_grey_400"
+                android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical"
                 android:text="@{product.price}"
-                android:fontFamily="sans-serif-medium"
-                android:textSize="@dimen/font_size_medium"
                 android:textColor="@color/blue_grey_400"
-                android:drawableTint="@color/blue_grey_400"
+                android:textSize="@dimen/font_size_medium"
                 app:layout_constraintBaseline_toBaselineOf="@+id/txt_name"
                 app:layout_constraintLeft_toRightOf="@+id/txt_name"
                 app:layout_constraintRight_toRightOf="parent"
@@ -132,10 +136,10 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
                 android:text="@string/txt_label_size"
                 android:textColor="@color/blue_grey_700"
                 android:textSize="@dimen/font_size_medium"
-                android:fontFamily="sans-serif-medium"
                 app:layout_constraintBottom_toTopOf="@+id/txt_label_colour"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/switcher"
@@ -146,17 +150,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="17dp"
                 android:layout_marginBottom="16dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
                 android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
                 android:text="@string/txt_label_colour"
                 android:textColor="@color/blue_grey_700"
                 android:textSize="@dimen/font_size_medium"
-                android:fontFamily="sans-serif-medium"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@+id/txt_label_size"
                 app:layout_constraintTop_toBottomOf="@+id/txt_label_size"
                 app:layout_constraintVertical_bias="0.507"
-                android:layout_marginLeft="0dp"
-                android:layout_marginStart="0dp"
                 />
 
             <android.support.constraint.Guideline
