@@ -112,28 +112,10 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     }
 
     private void showDeliveryForm() {
-        final LayoutFormOrderStep2Binding step2Binding = LayoutFormOrderStep2Binding.inflate(
-            LayoutInflater.from(getContext()), binding.formContainer, false);
+        final LayoutFormOrderStep2Binding step2Binding = binding.layoutStep2;
 
-        final Scene deliveryFormScene = new Scene(binding.formContainer,
-            ((ViewGroup) step2Binding.getRoot()));
-
-        ViewCompat.animate(binding.layoutStep1.getRoot()).alpha(0)
-            .setInterpolator(new AccelerateInterpolator(1.5f))
-            .setDuration(100)
-            .withEndAction(() -> TransitionManager
-                .go(deliveryFormScene, null));
-
-        deliveryFormScene.setEnterAction(() -> {
-            initOrderStepTwoView(step2Binding);
-
-            deliveryFormScene.getSceneRoot().setTranslationX(
-                binding.formContainer.getWidth());
-
-            ViewCompat.animate(deliveryFormScene.getSceneRoot())
-                .translationX(0)
-                .start();
-        });
+        binding.switcher.setDisplayedChild(1);
+        initOrderStepTwoView(step2Binding);
     }
 
     private void transitionSelectedView(View v) {
