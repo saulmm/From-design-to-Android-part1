@@ -90,9 +90,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        binding = FragmentOrderFormBinding.inflate(
-            LayoutInflater.from(getContext()), container, false);
-
+        binding = FragmentOrderFormBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
