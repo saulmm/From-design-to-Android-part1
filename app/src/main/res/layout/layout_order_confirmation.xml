@@ -128,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:lineSpacingExtra="4dp"
             android:text="Thank you! you'll receive\n your order soon!"
             android:textAppearance="@style/ConfirmationTextAppearance.Body"

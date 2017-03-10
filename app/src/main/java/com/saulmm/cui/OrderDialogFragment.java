@@ -85,11 +85,9 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         return orderFragment;
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-
         binding = FragmentOrderFormBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -110,34 +108,32 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     }
 
     private void showDeliveryForm() {
-        final LayoutFormOrderStep2Binding step2Binding = binding.layoutStep2;
-
         binding.switcher.setDisplayedChild(1);
-        initOrderStepTwoView(step2Binding);
+        initOrderStepTwoView(binding.layoutStep2);
     }
 
     private void transitionSelectedView(View v) {
         // Create the cloned view from the selected view at the same position
-        final View clonedView = createSelectionView(v);
+        final View selectionView = createSelectionView(v);
 
-        // Add the cloned view to the constraint layout
+        // Add the cloned view to the parent constraint layout
         if (clonedViews.size() < 2) {
-            binding.mainContainer.addView(clonedView);
-            clonedViews.add(clonedView);
+            binding.mainContainer.addView(selectionView);
+            clonedViews.add(selectionView);
         }
 
-        // Fire the transition by changing its constraint's layout params
-        startCloneAnimation(clonedView, getTargetView(v));
+        // Perform the transition by changing constraint's layout params
+        startCloneAnimation(selectionView, getTargetView(v));
     }
 
     private void startCloneAnimation(View clonedView, View targetView) {
         clonedView.post(() -> {
-            if (getActivity() != null) {
                 TransitionManager.beginDelayedTransition(
                     (ViewGroup) binding.getRoot(), selectedViewTransition);
 
-                clonedView.setLayoutParams(SelectedParamsFactory.endParams(clonedView, targetView)); // Fire the transition
-            }
+                // Fires the transition
+                clonedView.setLayoutParams(SelectedParamsFactory
+                    .endParams(clonedView, targetView));
         });
     }
 
@@ -193,6 +189,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
             showDeliveryForm();
         });
+
 
         layoutStep1.setListener(new Step1Listener() {
             @Override
@@ -273,23 +270,29 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     }
 
     private void changeToConfirmScene() {
-        final LayoutOrderConfirmationBinding confirmationBinding = LayoutOrderConfirmationBinding
-            .inflate(LayoutInflater.from(getContext()), binding.mainContainer, false);
+        final LayoutOrderConfirmationBinding confBinding = prepareConfirmationBinding();
 
-        confirmationBinding.getRoot().setBackground(
-            new ColorDrawable(orderSelection.color));
-
-        // TODO why content here?
         final Scene scene = new Scene(binding.content,
-            ((ViewGroup) confirmationBinding.getRoot()));
+            ((ViewGroup) confBinding.getRoot()));
 
-        confirmationBinding.setProduct(getProduct());
-        scene.setEnterAction(onEnterConfirmScene(confirmationBinding));
+        scene.setEnterAction(onEnterConfirmScene(confBinding));
 
         final Transition transition = TransitionInflater.from(getContext())
             .inflateTransition(R.transition.transition_confirmation_view);
 
         TransitionManager.go(scene, transition);
+    }
+
+    private LayoutOrderConfirmationBinding prepareConfirmationBinding() {
+        LayoutOrderConfirmationBinding confBinding = LayoutOrderConfirmationBinding
+            .inflate(LayoutInflater.from(getContext()), binding.mainContainer, false);
+
+        confBinding.getRoot().setBackground(
+            new ColorDrawable(orderSelection.color));
+
+        confBinding.setProduct(getProduct());
+        confBinding.setSelection(orderSelection);
+        return confBinding;
     }
 
     private Product getProduct() {
