@@ -167,7 +167,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         final String itemText = ((TextView) v).getText().toString();
         final SpannableString sString = new SpannableString(itemText);
 
-        sString.setSpan(new RelativeSizeSpan(1.5f), itemText.length() - spanOffset, itemText.length(),
+        sString.setSpan(new RelativeSizeSpan(1.75f), itemText.length() - spanOffset, itemText.length(),
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         ((TextView) v).setText(sString);
