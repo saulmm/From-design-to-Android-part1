@@ -37,5 +37,5 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$SUPPORT"
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
