@@ -12,7 +12,12 @@
     <string name="label_date">Preferred date</string>
     <string name="label_time">Preferred time</string>
     <string name="action_book">Book</string>
-    
+
+    <string name="txt_label_conf_color">Color: %1s</string>
+    <string name="txt_label_conf_size">Size: %1d</string>
+    <string name="txt_label_conf_time">Time: %1s</string>
+    <string name="txt_label_conf_date">Date: %1s</string>
+
     <string name="prefered_date_today">Today\n02</string>
     <string name="prefered_date_tomorrow">Tomorrow\n03</string>
     <string name="prefered_date_tuesday">Tuesday\n04</string>
@@ -20,4 +25,5 @@
     <string name="prefered_time_23">PM\n2–3</string>
     <string name="prefered_time_34">PM\n3–4</string>
     <string name="message_order_placed">Order placed</string>
+    <string name="txt_conf_message">Thank you! you\'ll receive  your order soon!</string>
 </resources>

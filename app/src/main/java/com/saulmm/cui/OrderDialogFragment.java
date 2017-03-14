@@ -118,6 +118,9 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         binding.setProduct(getProduct());
         binding.imgProduct.setImageDrawable(createProductImageDrawable(getProduct()));
 
+        binding.btnGo.setBackground(new ColorDrawable(ContextCompat.getColor(
+            getContext(), getProduct().color)));
+
         initOrderStepOneView(binding.layoutStep1);
     }
 
@@ -181,7 +184,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         final String itemText = ((TextView) v).getText().toString();
         final SpannableString sString = new SpannableString(itemText);
 
-        sString.setSpan(new RelativeSizeSpan(1.75f), itemText.length() - spanOffset, itemText.length(),
+        sString.setSpan(new RelativeSizeSpan(1.65f), itemText.length() - spanOffset, itemText.length(),
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         ((TextView) v).setText(sString);
@@ -190,11 +193,6 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     private void initOrderStepOneView(LayoutFormOrderStep1Binding layoutStep1) {
         binding.btnGo.setOnClickListener(v -> {
             binding.txtAction.setText(R.string.action_book);
-
-            if (orderSelection.color == 0) {
-                orderSelection.color = ContextCompat.getColor(
-                    getContext(), getProduct().color);
-            }
 
             for (View clonedView : clonedViews)
                 binding.mainContainer.removeView(clonedView);
@@ -227,7 +225,6 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     }
 
     private void initOrderStepTwoView(LayoutFormOrderStep2Binding step2Binding) {
-        binding.btnGo.setBackground(new ColorDrawable(orderSelection.color));
         binding.btnGo.setOnClickListener(v -> changeToConfirmScene());
 
         step2Binding.setListener(new Step2Listener() {
@@ -301,11 +298,18 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         LayoutOrderConfirmationBinding confBinding = LayoutOrderConfirmationBinding
             .inflate(LayoutInflater.from(getContext()), binding.mainContainer, false);
 
-        confBinding.getRoot().setBackground(
-            new ColorDrawable(orderSelection.color));
+        confBinding.getRoot().setBackground(new ColorDrawable(ContextCompat.getColor(
+            getContext(), getProduct().color)));
 
         confBinding.setProduct(getProduct());
         confBinding.setSelection(orderSelection);
+
+        confBinding.imgProduct.setImageDrawable(ContextCompat
+            .getDrawable(getContext(), getProduct().image));
+
+        confBinding.txtColor.setText(getString(R.string.txt_label_conf_color, String.format(
+            "#%06X", (0xFFFFFF & getProduct().color))));
+
         return confBinding;
     }
 
