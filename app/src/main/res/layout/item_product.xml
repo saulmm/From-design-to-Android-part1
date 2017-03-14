@@ -22,7 +22,7 @@
         >
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/img_product"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:scaleType="centerInside"
@@ -35,31 +35,32 @@
             />
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/txt_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_large"
-            android:layout_marginStart="@dimen/spacing_large"
             android:layout_marginTop="@dimen/spacing_large"
+            android:paddingLeft="@dimen/spacing_medium"
+            android:paddingRight="@dimen/spacing_medium"
             android:text="@{product.name}"
             android:textColor="@color/grey_800"
-            android:textSize="@dimen/font_size_medium"
+            android:textSize="@dimen/font_size_big"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image"
+            app:layout_constraintTop_toBottomOf="@+id/img_product"
             tools:text="Shooting stars"
             />
 
         <TextView
-            android:id="@+id/price"
+            android:id="@+id/txt_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_large"
+            android:paddingLeft="@dimen/spacing_medium"
+            android:paddingRight="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_medium"
             android:text="@{product.price}"
             android:textColor="@color/blue_grey_400"
             android:textSize="@dimen/font_size_medium"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/txt_name"
             tools:text="$ 45"
             />
     </android.support.constraint.ConstraintLayout>

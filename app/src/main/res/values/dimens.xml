@@ -8,9 +8,12 @@
     <dimen name="product_regular_height">160dp</dimen>
     <dimen name="product_large_height">208dp</dimen>
     <dimen name="product_order_form_height">412dp</dimen>
-    <dimen name="font_size_medium">16sp</dimen>
     <dimen name="product_color_size">32dp</dimen>
     <dimen name="botton_sheet_height">420dp</dimen>
+
+    <!-- Font size -->
+    <dimen name="font_size_medium">16sp</dimen>
+    <dimen name="font_size_big">18sp</dimen>
 
     <!-- Spacing -->
     <dimen name="spacing_medium">8dp</dimen>

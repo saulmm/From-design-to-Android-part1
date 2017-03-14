@@ -48,8 +48,8 @@ class ProductViewHolder extends RecyclerView.ViewHolder {
 
         gradientDrawable.mutate();
 
-        binding.image.setBackground(gradientDrawable);
-        binding.image.setImageResource(product.image);
+        binding.imgProduct.setBackground(gradientDrawable);
+        binding.imgProduct.setImageResource(product.image);
     }
 
     private int getDrawableHeight() {
