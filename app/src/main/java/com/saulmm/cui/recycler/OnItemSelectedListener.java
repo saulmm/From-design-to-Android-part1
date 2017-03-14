@@ -41,6 +41,8 @@ public abstract class OnItemSelectedListener implements RecyclerView.OnItemTouch
     public final boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
         if (gestureDetector.onTouchEvent(e)) {
             final View touchedView = rv.findChildViewUnder(e.getX(), e.getY());
+            if (touchedView == null) return false;
+
             onItemSelected(rv.findContainingViewHolder(touchedView),
                     rv.getChildAdapterPosition(touchedView));
         }
