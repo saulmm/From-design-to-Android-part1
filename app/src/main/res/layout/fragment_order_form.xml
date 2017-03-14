@@ -76,9 +76,9 @@
                 android:textSize="@dimen/font_size_medium"
                 app:layout_constraintLeft_toRightOf="@+id/txt_name"
                 app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBaseline_toBaselineOf="@+id/txt_name"
                 tools:ignore="UnusedAttribute"
                 tools:text="45 $"
-                tools:layout_editor_absoluteY="34dp"
                 />
 
             <ViewSwitcher
