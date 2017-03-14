@@ -2,6 +2,7 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <data>
@@ -15,6 +16,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
         >
 
         <TextView
@@ -22,12 +25,11 @@
             style="@style/Widget.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_huge"
-            android:layout_marginStart="@dimen/spacing_big"
-            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginTop="8dp"
             android:text="@string/label_date"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
             />
 
         <TextView
@@ -35,47 +37,52 @@
             style="@style/Widget.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginTop="24dp"
             android:text="@string/label_time"
             app:layout_constraintLeft_toLeftOf="@+id/txt_label_size"
-            app:layout_constraintTop_toBottomOf="@+id/txt_date2"
+            app:layout_constraintTop_toBottomOf="@+id/txt_date1"
+            android:layout_marginLeft="0dp"
             />
 
         <TextView
             android:id="@+id/txt_date1"
             style="@style/Widget.DateTime"
-            android:layout_marginEnd="@dimen/spacing_medium"
-            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
             android:onClick="@{listener::onDateSelected}"
             android:text="@string/prefered_date_today"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_date2"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/txt_date2"
-            app:layout_constraintTop_toTopOf="@+id/txt_date2"
+            app:layout_constraintTop_toBottomOf="@+id/txt_label_size"
             app:spanOffset="@{2}"
             />
 
         <TextView
             android:id="@+id/txt_date2"
             style="@style/Widget.DateTime"
-            android:layout_marginTop="@dimen/spacing_medium"
             android:onClick="@{listener::onDateSelected}"
             android:text="@string/prefered_date_tomorrow"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_label_size"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_date1"
+            app:layout_constraintLeft_toRightOf="@+id/txt_date1"
+            app:layout_constraintRight_toLeftOf="@+id/txt_date3"
+            app:layout_constraintTop_toTopOf="@+id/txt_date1"
             app:spanOffset="@{2}"
             />
 
         <TextView
             android:id="@+id/txt_date3"
             style="@style/Widget.DateTime"
-            android:layout_marginLeft="@dimen/spacing_medium"
-            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:onClick="@{listener::onDateSelected}"
             android:text="@string/prefered_date_tuesday"
             app:layout_constraintBottom_toBottomOf="@+id/txt_date2"
             app:layout_constraintLeft_toRightOf="@+id/txt_date2"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txt_date2"
+            app:layout_constraintVertical_bias="0.0"
             app:spanOffset="@{2}"
             />
 
@@ -83,40 +90,43 @@
         <TextView
             android:id="@+id/txt_time1"
             style="@style/Widget.DateTime"
-            android:layout_marginBottom="@dimen/spacing_large"
-            android:layout_marginTop="@dimen/spacing_medium"
             android:onClick="@{listener::onTimeSelected}"
             android:text="@string/prefered_time_23"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_label_time"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_time3"
+            app:layout_constraintLeft_toRightOf="@+id/txt_time3"
+            app:layout_constraintRight_toLeftOf="@+id/txt_time2"
+            app:layout_constraintTop_toTopOf="@+id/txt_time3"
             app:spanOffset="@{3}"
             />
 
         <TextView
             android:id="@+id/txt_time2"
             style="@style/Widget.DateTime"
-            android:layout_marginLeft="@dimen/spacing_medium"
-            android:layout_marginStart="@dimen/spacing_medium"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="0dp"
             android:onClick="@{listener::onTimeSelected}"
             android:text="@string/prefered_time_34"
             app:layout_constraintBottom_toBottomOf="@+id/txt_time1"
             app:layout_constraintLeft_toRightOf="@+id/txt_time1"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txt_time1"
+            app:layout_constraintVertical_bias="0.0"
             app:spanOffset="@{3}"
             />
 
         <TextView
             android:id="@+id/txt_time3"
             style="@style/Widget.DateTime"
-            android:layout_marginEnd="@dimen/spacing_medium"
-            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginBottom="24dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="7dp"
             android:onClick="@{listener::onTimeSelected}"
             android:text="@string/prefered_time_12"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_time1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/txt_time1"
-            app:layout_constraintTop_toTopOf="@+id/txt_time1"
+            app:layout_constraintTop_toBottomOf="@+id/txt_label_time"
             app:spanOffset="@{3}"
             />
     </android.support.constraint.ConstraintLayout>

@@ -153,6 +153,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/img_color_blue"
             app:layout_constraintTop_toBottomOf="@+id/txt_label_color"
+            app:layout_constraintHorizontal_chainStyle="spread"
             />
     </android.support.constraint.ConstraintLayout>
 </layout>

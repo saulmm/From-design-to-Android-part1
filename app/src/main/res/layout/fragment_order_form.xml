@@ -31,7 +31,7 @@
                 android:layout_height="@dimen/img_form_size"
                 android:layout_marginLeft="@dimen/spacing_huge"
                 android:layout_marginStart="@dimen/spacing_huge"
-                android:layout_marginTop="@dimen/spacing_huge"
+                android:layout_marginTop="16dp"
                 android:src="@color/product_blue"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -74,11 +74,11 @@
                 android:text="@{product.price}"
                 android:textColor="@color/blue_grey_400"
                 android:textSize="@dimen/font_size_medium"
-                app:layout_constraintBaseline_toBaselineOf="@+id/txt_name"
                 app:layout_constraintLeft_toRightOf="@+id/txt_name"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:ignore="UnusedAttribute"
                 tools:text="45 $"
+                tools:layout_editor_absoluteY="34dp"
                 />
 
             <ViewSwitcher

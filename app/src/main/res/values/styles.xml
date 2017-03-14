@@ -33,8 +33,9 @@
     </style>
 
     <style name="Widget.SelectedItem">
-        <item name="android:textColor">@color/blue_grey_900</item>
+        <item name="android:textColor">@color/blue_grey_700</item>
         <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="Widget.Color">

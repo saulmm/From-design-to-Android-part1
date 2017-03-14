@@ -7,6 +7,7 @@
 
         <item name="sizeStyle">@style/Widget.Size</item>
         <item name="colorStyle">@style/Widget.Color</item>
+        <item name="selectedTextStyle">@style/Widget.SelectedItem</item>
 
     </style>
 
