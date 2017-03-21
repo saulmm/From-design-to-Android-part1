@@ -8,8 +8,9 @@
         <item name="sizeStyle">@style/Widget.Size</item>
         <item name="colorStyle">@style/Widget.Color</item>
         <item name="selectedTextStyle">@style/Widget.SelectedItem</item>
-
     </style>
+
+    <style name="AppTheme" parent="Base.AppTheme"/>
 
     <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
