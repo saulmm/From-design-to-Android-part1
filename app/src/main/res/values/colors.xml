@@ -10,9 +10,9 @@
     <color name="blue_grey_700">#455a64</color>
     <color name="blue_grey_900">#37474F</color>
 
-    <color name="product_yellow">#FDBC56</color>
-    <color name="product_blue">#2DA6F2</color>
-    <color name="product_green">#7ECB59</color>
-    <color name="product_purple">#746AE7</color>
+    <color name="product_yellow">#FFBB43</color>
+    <color name="product_blue">#11A0F8</color>
+    <color name="product_green">#7ACE4C</color>
+    <color name="product_purple">#7460EE</color>
     <color name="product_red">#B54B36</color>
 </resources>
