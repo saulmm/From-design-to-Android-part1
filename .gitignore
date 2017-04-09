@@ -1,14 +1,5 @@
 
 ### Android ###
-# Built application files
-*.apk
-*.ap_
-
-# Files for the ART/Dalvik VM
-*.dex
-
-# Java class files
-*.class
 
 # Generated files
 bin/
@@ -33,10 +24,7 @@ captures/
 
 # Intellij
 *.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/libraries
+.idea/
 
 # Keystore files
 *.jks
@@ -60,7 +48,6 @@ gen-external-apklibs
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
-.idea/**/workspace.xml
 .idea/**/tasks.xml
 
 # Sensitive or high-churn files:
@@ -71,10 +58,6 @@ gen-external-apklibs
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
-
-# Gradle:
-.idea/**/gradle.xml
-.idea/**/libraries
 
 # Mongo Explorer plugin:
 .idea/**/mongoSettings.xml
@@ -102,14 +85,9 @@ fabric.properties
 ### Intellij+iml Patch ###
 # Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
 
-modules.xml
-.idea/misc.xml
 *.ipr
 
 ### Gradle ###
-.gradle
-/build/
-
 # Ignore Gradle GUI config
 gradle-app.setting
 
