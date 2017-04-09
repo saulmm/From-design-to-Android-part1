@@ -33,21 +33,19 @@ import java.util.List;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class HomeActivity extends AppCompatActivity {
-    private ActivityHomeBinding binding;
-    private List<Product> fakeProducts;
+    private final List<Product> fakeProducts = Product.createFakeProducts();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
-        fakeProducts = Product.createFakeProducts();
+
+        ActivityHomeBinding binding = DataBindingUtil.setContentView(
+            this, R.layout.activity_home);
 
         initRecycler(binding.productsRecycler);
     }
 
     private void initRecycler(RecyclerView productsRecycler) {
-        productsRecycler.setHasFixedSize(true);
-
         productsRecycler.setAdapter(new ProductAdapter(fakeProducts));
         productsRecycler.addItemDecoration(new ProductItemPaddingDecoration(this));
         productsRecycler.addOnItemTouchListener(new OnItemSelectedListener(this) {
