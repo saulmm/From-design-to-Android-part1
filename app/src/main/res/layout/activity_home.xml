@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
     <android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.saulmm.cui.HomeActivity"
-        >
+        tools:context="com.saulmm.cui.HomeActivity">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/products_recycler"
@@ -19,8 +17,8 @@
             app:layoutManager="StaggeredGridLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:spanCount="@integer/product_columns"
-            tools:listitem="@layout/item_product"
-            />
+            tools:listitem="@layout/item_product"/>
+        
     </android.support.design.widget.CoordinatorLayout>
 </layout>
 
