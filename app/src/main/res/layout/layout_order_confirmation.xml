@@ -18,7 +18,7 @@
             />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btn_go"
         android:layout_width="match_parent"
         android:layout_height="@dimen/botton_sheet_height"
@@ -173,5 +173,5 @@
             tools:ignore="ContentDescription"
             />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

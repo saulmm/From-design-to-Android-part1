@@ -17,9 +17,9 @@ package com.saulmm.cui.recycler;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -39,7 +39,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final ItemProductBinding productBinding = ItemProductBinding.inflate(
-            LayoutInflater.from(parent.getContext()), parent, false);
+                LayoutInflater.from(parent.getContext()), parent, false);
 
         return new ProductViewHolder(productBinding);
     }
@@ -72,10 +72,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         @NonNull
         private GradientDrawable createProductBackground(Product product) {
             final GradientDrawable gradientDrawable = (GradientDrawable) ContextCompat.getDrawable(
-                itemView.getContext(), R.drawable.bg_product);
+                    itemView.getContext(), R.drawable.bg_product);
 
             gradientDrawable.setColor(ContextCompat.getColor(
-                itemView.getContext(), product.color));
+                    itemView.getContext(), product.color));
 
             gradientDrawable.setSize(itemView.getWidth(), getDrawableHeight());
             gradientDrawable.mutate();
@@ -86,8 +86,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             final Context context = itemView.getContext();
 
             return getAdapterPosition() % 2 == 0
-                ? context.getResources().getDimensionPixelOffset(R.dimen.product_regular_height)
-                : context.getResources().getDimensionPixelOffset(R.dimen.product_large_height);
+                    ? context.getResources().getDimensionPixelOffset(R.dimen.product_regular_height)
+                    : context.getResources().getDimensionPixelOffset(R.dimen.product_large_height);
         }
     }
 }

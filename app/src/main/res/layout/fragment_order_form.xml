@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         >
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main_container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/botton_sheet_height"
@@ -163,14 +163,14 @@
                 app:layout_constraintVertical_bias="0.507"
                 />
 
-            <android.support.constraint.Guideline
+            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.55"
                 />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
 </layout>
