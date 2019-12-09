@@ -11,7 +11,7 @@
             />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="HardcodedText"
@@ -155,5 +155,5 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_label_color"
             app:layout_constraintHorizontal_chainStyle="spread"
             />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

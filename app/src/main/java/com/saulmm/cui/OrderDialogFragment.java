@@ -15,7 +15,7 @@
  */
 package com.saulmm.cui;
 
-import android.databinding.BindingAdapter;
+import androidx.databinding.BindingAdapter;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -24,12 +24,12 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
@@ -113,13 +113,13 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         orderSelection = new OrderSelection();
 
         selectedViewTransition = TransitionInflater.from(getContext())
-            .inflateTransition(R.transition.transition_selected_view);
+                .inflateTransition(R.transition.transition_selected_view);
 
         binding.setProduct(getProduct());
         binding.imgProduct.setImageDrawable(createProductImageDrawable(getProduct()));
 
         binding.btnGo.setBackground(new ColorDrawable(ContextCompat.getColor(
-            getContext(), getProduct().color)));
+                getContext(), getProduct().color)));
 
         initOrderStepOneView(binding.layoutStep1);
     }
@@ -145,11 +145,11 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
     private void startCloneAnimation(View clonedView, View targetView) {
         clonedView.post(() -> {
-                TransitionManager.beginDelayedTransition(
+            TransitionManager.beginDelayedTransition(
                     (ViewGroup) binding.getRoot(), selectedViewTransition);
 
-                // Fires the transition
-                clonedView.setLayoutParams(SelectedParamsFactory
+            // Fires the transition
+            clonedView.setLayoutParams(SelectedParamsFactory
                     .endParams(clonedView, targetView));
         });
     }
@@ -158,20 +158,20 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         final String resourceName = getResources().getResourceEntryName(v.getId());
 
         return (resourceName.startsWith(ID_COLOR_SUFFIX))
-            ? createSelectedColorView((ImageView) v)
-            : createSelectedTextView(v);
+                ? createSelectedColorView((ImageView) v)
+                : createSelectedTextView(v);
     }
 
     private View getTargetView(View v) {
         final String resourceName = getResources().getResourceEntryName(v.getId());
 
         if (resourceName.startsWith(ID_SIZE_SUFFIX) ||
-            resourceName.startsWith(ID_DATE_SUFFIX)) {
+                resourceName.startsWith(ID_DATE_SUFFIX)) {
             v.setId(R.id.first_position);
             return binding.txtLabelSize;
 
         } else if (resourceName.startsWith(ID_COLOR_SUFFIX) ||
-            resourceName.startsWith(ID_TIME_SUFFIX)) {
+                resourceName.startsWith(ID_TIME_SUFFIX)) {
             v.setId(R.id.second_position);
             return binding.txtLabelColour;
         }
@@ -185,7 +185,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         final SpannableString sString = new SpannableString(itemText);
 
         sString.setSpan(new RelativeSizeSpan(1.65f), itemText.length() - spanOffset, itemText.length(),
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         ((TextView) v).setText(sString);
     }
@@ -254,7 +254,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
     private View createSelectedTextView(View v) {
         final TextView fakeSelectedTextView = new TextView(
-            getContext(), null, R.attr.selectedTextStyle);
+                getContext(), null, R.attr.selectedTextStyle);
 
         final String resourceName = getResources().getResourceEntryName(v.getId());
 
@@ -273,7 +273,7 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
     private View createSelectedColorView(ImageView selectedView) {
         final ImageView fakeImageView = new CircleImageView(
-            getContext(), null, R.attr.colorStyle);
+                getContext(), null, R.attr.colorStyle);
 
         fakeImageView.setImageDrawable(selectedView.getDrawable());
         fakeImageView.setLayoutParams(SelectedParamsFactory.startColorParams(selectedView));
@@ -284,31 +284,31 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         final LayoutOrderConfirmationBinding confBinding = prepareConfirmationBinding();
 
         final Scene scene = new Scene(binding.content,
-            ((ViewGroup) confBinding.getRoot()));
+                ((ViewGroup) confBinding.getRoot()));
 
         scene.setEnterAction(onEnterConfirmScene(confBinding));
 
         final Transition transition = TransitionInflater.from(getContext())
-            .inflateTransition(R.transition.transition_confirmation_view);
+                .inflateTransition(R.transition.transition_confirmation_view);
 
         TransitionManager.go(scene, transition);
     }
 
     private LayoutOrderConfirmationBinding prepareConfirmationBinding() {
         LayoutOrderConfirmationBinding confBinding = LayoutOrderConfirmationBinding
-            .inflate(LayoutInflater.from(getContext()), binding.mainContainer, false);
+                .inflate(LayoutInflater.from(getContext()), binding.mainContainer, false);
 
         confBinding.getRoot().setBackground(new ColorDrawable(ContextCompat.getColor(
-            getContext(), getProduct().color)));
+                getContext(), getProduct().color)));
 
         confBinding.setProduct(getProduct());
         confBinding.setSelection(orderSelection);
 
         confBinding.imgProduct.setImageDrawable(ContextCompat
-            .getDrawable(getContext(), getProduct().image));
+                .getDrawable(getContext(), getProduct().image));
 
         confBinding.txtColor.setText(getString(R.string.txt_label_conf_color, String.format(
-            "#%06X", (0xFFFFFF & getProduct().color))));
+                "#%06X", (0xFFFFFF & getProduct().color))));
 
         return confBinding;
     }
@@ -323,10 +323,10 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
         background.getPaint().setColor(ContextCompat.getColor(getContext(), product.color));
 
         final BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(),
-            BitmapFactory.decodeResource(getResources(), product.image));
+                BitmapFactory.decodeResource(getResources(), product.image));
 
         final LayerDrawable layerDrawable = new LayerDrawable
-            (new Drawable[]{background, bitmapDrawable});
+                (new Drawable[]{background, bitmapDrawable});
 
         final int padding = (int) getResources().getDimension(R.dimen.spacing_huge);
         layerDrawable.setLayerInset(1, padding, padding, padding, padding);
@@ -338,20 +338,20 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
     private Runnable onEnterConfirmScene(LayoutOrderConfirmationBinding confirmationBinding) {
         return () -> {
             ViewCompat.animate(confirmationBinding.txtSubtitle)
-                .scaleX(1).scaleY(1)
-                .setInterpolator(new OvershootInterpolator())
-                .setStartDelay(200)
-                .start();
+                    .scaleX(1).scaleY(1)
+                    .setInterpolator(new OvershootInterpolator())
+                    .setStartDelay(200)
+                    .start();
         };
     }
 
     private static class SelectedParamsFactory {
         private static ConstraintLayout.LayoutParams startColorParams(View selectedView) {
             final int colorSize = selectedView.getContext().getResources()
-                .getDimensionPixelOffset(R.dimen.product_color_size);
+                    .getDimensionPixelOffset(R.dimen.product_color_size);
 
             final ConstraintLayout.LayoutParams layoutParams =
-                new ConstraintLayout.LayoutParams(colorSize, colorSize);
+                    new ConstraintLayout.LayoutParams(colorSize, colorSize);
 
             setStartState(selectedView, layoutParams);
             return layoutParams;
@@ -359,9 +359,9 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
         private static ConstraintLayout.LayoutParams startTextParams(View selectedView) {
             final ConstraintLayout.LayoutParams layoutParams =
-                new ConstraintLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
+                    new ConstraintLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
 
             setStartState(selectedView, layoutParams);
             return layoutParams;
@@ -375,10 +375,10 @@ public class OrderDialogFragment extends BottomSheetDialogFragment {
 
         private static ConstraintLayout.LayoutParams endParams(View v, View targetView) {
             final ConstraintLayout.LayoutParams layoutParams =
-                (ConstraintLayout.LayoutParams) v.getLayoutParams();
+                    (ConstraintLayout.LayoutParams) v.getLayoutParams();
 
             final int marginLeft = v.getContext().getResources()
-                .getDimensionPixelOffset(R.dimen.spacing_medium);
+                    .getDimensionPixelOffset(R.dimen.spacing_medium);
 
             layoutParams.setMargins(marginLeft, 0, 0, 0);
             layoutParams.topToTop = targetView.getId();

@@ -16,11 +16,10 @@
 package com.saulmm.cui;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.saulmm.cui.databinding.ActivityHomeBinding;
 import com.saulmm.cui.model.Product;
@@ -39,8 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityHomeBinding binding = DataBindingUtil.setContentView(
-            this, R.layout.activity_home);
+        ActivityHomeBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
         initRecycler(binding.productsRecycler);
     }
